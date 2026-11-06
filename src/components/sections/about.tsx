@@ -5,6 +5,7 @@ import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
 import { FileDown, Sparkles, CheckCircle2, MapPin, Award, BookOpen } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
+import { trackResumeDownload } from "@/lib/analytics"
 
 export function About() {
   const { owner } = portfolioData
@@ -97,6 +98,7 @@ export function About() {
                 <a
                   href={owner.resumeUrl}
                   download="Harsha_Jagadish_Resume.pdf"
+                  onClick={trackResumeDownload}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm shadow-md shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
                 >
                   <FileDown className="w-4 h-4" />

@@ -7,6 +7,7 @@ import { Guestbook } from "@/components/sections/guestbook"
 import { DevJokeWidget } from "@/components/dev-joke-widget"
 import { Mail, ArrowUpRight } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
+import { trackSocialLinkClick } from "@/lib/analytics"
 
 export function ContactAndGuestbook() {
   const { owner } = portfolioData
@@ -54,6 +55,7 @@ export function ContactAndGuestbook() {
             <span>Direct Email:</span>
             <a
               href={`mailto:${owner.email}`}
+              onClick={() => trackSocialLinkClick("Email")}
               className="text-cyan-400 hover:underline font-semibold"
             >
               {owner.email}
@@ -65,6 +67,7 @@ export function ContactAndGuestbook() {
               href={owner.linkedIn}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackSocialLinkClick("LinkedIn")}
               className="hover:text-cyan-400 transition-colors"
             >
               LinkedIn
@@ -74,6 +77,7 @@ export function ContactAndGuestbook() {
               href={owner.github}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackSocialLinkClick("GitHub")}
               className="hover:text-cyan-400 transition-colors"
             >
               GitHub

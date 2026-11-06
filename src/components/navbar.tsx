@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react"
 import { Menu, X, FileDown } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { trackResumeDownload } from "@/lib/analytics"
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
@@ -74,6 +75,7 @@ export function Navbar() {
           <a
             href={portfolioData.owner.resumeUrl}
             download="Harsha_Jagadish_Resume.pdf"
+            onClick={trackResumeDownload}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5" />
@@ -120,7 +122,10 @@ export function Navbar() {
                 <a
                   href={portfolioData.owner.resumeUrl}
                   download="Harsha_Jagadish_Resume.pdf"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    trackResumeDownload()
+                    setMobileMenuOpen(false)
+                  }}
                   className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/25 cursor-pointer"
                 >
                   <FileDown className="w-4 h-4" />

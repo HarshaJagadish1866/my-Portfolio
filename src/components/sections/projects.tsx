@@ -7,6 +7,7 @@ import { Terminal, Users, Calendar, ArrowUpRight, GitFork, ExternalLink, Bot, Sp
 import { portfolioData, type ProjectItem } from "@/data/portfolio"
 import { ProjectViewCounter } from "@/components/sections/project-view-counter"
 import { GithubRepoStats } from "@/components/github-repo-stats"
+import { trackProjectLinkClick } from "@/lib/analytics"
 
 export function Projects() {
   const { projects } = portfolioData
@@ -182,6 +183,7 @@ export function Projects() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackProjectLinkClick(project.title, "live")}
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-semibold shadow-sm hover:scale-105 transition-all"
                       >
                         <span>Live Demo</span>
@@ -195,6 +197,7 @@ export function Projects() {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackProjectLinkClick(project.title, "github")}
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-card border border-border text-foreground text-xs font-medium hover:border-cyan-500/40 transition-colors"
                       >
                         <GitFork className="w-3.5 h-3.5" />

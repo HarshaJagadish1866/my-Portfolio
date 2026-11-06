@@ -3,6 +3,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { Navbar } from "@/components/navbar"
+import { AnalyticsWrapper } from "@/components/analytics-wrapper"
 import { portfolioData } from "@/data/portfolio"
 
 export const metadata: Metadata = {
@@ -46,6 +47,7 @@ export default function RootLayout({
           <ScrollProgress />
           <Navbar />
           <div className="flex-1 flex flex-col">{children}</div>
+          <AnalyticsWrapper />
         </ThemeProvider>
       </body>
     </html>

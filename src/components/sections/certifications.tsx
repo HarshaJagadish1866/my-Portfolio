@@ -4,6 +4,7 @@ import * as React from "react"
 import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { Award, Calendar, CheckCircle2, ExternalLink, Filter, Sparkles, Building2 } from "lucide-react"
 import { portfolioData, type CertificationItem } from "@/data/portfolio"
+import { trackCertificateLinkClick } from "@/lib/analytics"
 
 export function Certifications() {
   const { certifications } = portfolioData
@@ -144,6 +145,7 @@ export function Certifications() {
                         href={cert.credentialUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackCertificateLinkClick(cert.title)}
                         className="inline-flex items-center gap-1.5 text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
                       >
                         <span>View Verified Certificate</span>

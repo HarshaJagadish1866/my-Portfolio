@@ -4,6 +4,7 @@ import * as React from "react"
 import { motion } from "motion/react"
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react"
 import { submitContactMessage } from "@/lib/supabase"
+import { trackContactSubmit } from "@/lib/analytics"
 
 export function ContactForm() {
   const [name, setName] = React.useState("")
@@ -67,6 +68,7 @@ export function ContactForm() {
         setName("")
         setEmail("")
         setMessage("")
+        trackContactSubmit()
       } else {
         setStatus("error")
         setFeedback(result.error || "Failed to send message. Please try again.")
