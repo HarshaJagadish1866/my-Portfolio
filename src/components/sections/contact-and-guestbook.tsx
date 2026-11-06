@@ -4,6 +4,7 @@ import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { ContactForm } from "@/components/sections/contact-form"
 import { Guestbook } from "@/components/sections/guestbook"
+import { DevJokeWidget } from "@/components/dev-joke-widget"
 import { Mail, ArrowUpRight } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
 
@@ -40,6 +41,11 @@ export function ContactAndGuestbook() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           <ContactForm />
           <Guestbook />
+        </div>
+
+        {/* Fun Widget: Dev Joke of the Day (Public API) */}
+        <div className="mt-12">
+          <DevJokeWidget />
         </div>
 
         {/* Quick Social Connect Bar */}

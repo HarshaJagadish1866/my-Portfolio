@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { Terminal, Users, Calendar, ArrowUpRight, GitFork, ExternalLink, Bot, Sparkles, Compass, ShieldAlert } from "lucide-react"
 import { portfolioData, type ProjectItem } from "@/data/portfolio"
 import { ProjectViewCounter } from "@/components/sections/project-view-counter"
+import { GithubRepoStats } from "@/components/github-repo-stats"
 
 export function Projects() {
   const { projects } = portfolioData
@@ -156,7 +157,7 @@ export function Projects() {
                     </div>
 
                     {/* Skill Tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-6">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                       {project.skills.map((skill) => (
                         <span
                           key={skill}
@@ -166,6 +167,9 @@ export function Projects() {
                         </span>
                       ))}
                     </div>
+
+                    {/* GitHub Live Stats (Stars, Language, Updated) */}
+                    <GithubRepoStats githubUrl={project.githubUrl} />
                   </div>
                 </div>
 

@@ -124,7 +124,7 @@ export const portfolioData: PortfolioData = {
         "LLM Application",
         "Python",
       ],
-      githubUrl: null,
+      githubUrl: "https://github.com/HarshaJagadish1866/Arbitr-ai",
       liveUrl: null,
       imageUrl: null,
       status: "In Development",
