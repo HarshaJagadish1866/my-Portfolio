@@ -5,6 +5,7 @@ import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
 import { Terminal, Users, Calendar, ArrowUpRight, GitFork, ExternalLink, Bot, Sparkles, Compass, ShieldAlert } from "lucide-react"
 import { portfolioData, type ProjectItem } from "@/data/portfolio"
+import { ProjectViewCounter } from "@/components/sections/project-view-counter"
 
 export function Projects() {
   const { projects } = portfolioData
@@ -169,7 +170,7 @@ export function Projects() {
                 </div>
 
                 {/* Bottom Action Footer */}
-                <div className="px-6 sm:px-8 pb-6 pt-2 border-t border-border/40 flex items-center justify-between">
+                <div className="px-6 sm:px-8 pb-6 pt-3 border-t border-border/40 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
                     {/* Live Demo Button (Only if URL exists) */}
                     {project.liveUrl ? (
@@ -201,14 +202,14 @@ export function Projects() {
                     {!project.liveUrl && !project.githubUrl && (
                       <span className="text-xs font-mono text-muted-foreground flex items-center gap-1.5">
                         <span className="h-1.5 w-1.5 rounded-full bg-slate-500" />
-                        Repo & Live Links: Available on Request
+                        Links: Available on Request
                       </span>
                     )}
                   </div>
 
-                  <span className="text-[11px] font-mono text-muted-foreground">
-                    IITM Portfolio
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <ProjectViewCounter slug={project.id} />
+                  </div>
                 </div>
               </motion.div>
             )
