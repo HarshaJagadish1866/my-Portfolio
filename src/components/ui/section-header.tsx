@@ -36,7 +36,7 @@ export function SectionHeader({
           {number}
         </span>
 
-        {/* 2. Title: shrink-0 and w-auto so it never takes full width and never pushes the line underneath */}
+        {/* 2. Title: shrink-0 and w-auto so it never takes full width */}
         <div className="w-auto shrink-0 inline-flex items-baseline">
           <Typewriter
             as="h2"
@@ -52,12 +52,6 @@ export function SectionHeader({
             )}
           />
         </div>
-
-        {/* 3. Horizontal Line: separate element after title, flex-1, min-w-0, 1px height, self-center, left margin ~16px (ml-4) */}
-        <div
-          className="flex-1 min-w-[1.5rem] h-[1px] bg-border ml-4 self-center shrink"
-          aria-hidden="true"
-        />
       </div>
 
       {subtitle && (
