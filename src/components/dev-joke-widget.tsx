@@ -103,7 +103,7 @@ export function DevJokeWidget() {
       </div>
 
       {/* Joke Body */}
-      <div className="p-5 font-mono text-sm min-h-[110px] flex flex-col justify-center">
+      <div data-glass-type="input" className="p-5 font-mono text-sm min-h-[110px] flex flex-col justify-center">
         {loading ? (
           <div className="space-y-2.5 py-1" aria-label="Loading joke">
             <div className="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-5/6 animate-pulse" />

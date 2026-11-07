@@ -52,6 +52,7 @@ export function Projects() {
             return (
               <motion.div
                 key={project.id}
+                data-glass-type="card"
                 initial={shouldReduceMotion ? false : { opacity: 0.9, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

@@ -102,7 +102,7 @@ export function Certifications() {
                 <div className="absolute -left-[31px] sm:-left-[47px] top-6 h-4 w-4 rounded-full bg-slate-950 border-2 border-cyan-400 group-hover:scale-125 group-hover:bg-cyan-400 transition-all shadow-[0_0_10px_rgba(6,182,212,0.6)]" />
 
                 {/* Timeline Card */}
-                <div className="p-6 sm:p-7 rounded-3xl bg-secondary/30 border border-border/60 hover:border-cyan-500/40 backdrop-blur-md transition-all shadow-sm">
+                <div data-glass-type="card" className="p-6 sm:p-7 rounded-3xl bg-secondary/30 border border-border/60 hover:border-cyan-500/40 backdrop-blur-md transition-all shadow-sm">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                     
                     {/* Issuer Badge */}

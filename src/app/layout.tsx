@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { Navbar } from "@/components/navbar"
 import { AnalyticsWrapper } from "@/components/analytics-wrapper"
-import { LiquidGlassCursor } from "@/components/liquid-glass-cursor"
+import { GlobalLiquidCursor } from "@/components/global-liquid-cursor"
 import { portfolioData } from "@/data/portfolio"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://harsha-jagadish.vercel.app"
@@ -94,11 +94,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <GlobalLiquidCursor />
           <ScrollProgress />
           <Navbar />
           <div className="flex-1 flex flex-col">{children}</div>
           <AnalyticsWrapper />
-          <LiquidGlassCursor />
         </ThemeProvider>
       </body>
     </html>

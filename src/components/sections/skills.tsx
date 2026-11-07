@@ -109,6 +109,7 @@ export function Skills() {
               return (
                 <motion.div
                   key={`${skill.category}-${skill.name}`}
+                  data-glass-type="card"
                   layout
                   initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}

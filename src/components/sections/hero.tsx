@@ -71,6 +71,7 @@ export function Hero() {
               {/* Animated Name */}
               <h1
                 ref={nameRef}
+                data-glass-type="text"
                 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground leading-[1.08] mb-2"
               >
                 {shouldReduceMotion ? (
