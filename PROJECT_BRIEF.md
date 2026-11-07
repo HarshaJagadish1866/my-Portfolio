@@ -62,4 +62,7 @@ RULES FOR YOU
 4. Whenever I must do something manually, give me numbered click-by-click instructions.
 5. Keep all my portfolio content in ONE data file (src/data/portfolio.ts) so I can update it easily later.
 6. The site must be mobile-friendly, fast, accessible, and respect users who prefer reduced motion.
+
+## Features that must never be removed
+- Liquid glass cursor (src/components/global-liquid-cursor.tsx): Circular liquid glass cursor that refracts content beneath it on desktop mouse devices. Do not remove. Liquid glass cursor is a requested feature.
 --- END BRIEF ---

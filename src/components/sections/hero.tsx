@@ -4,17 +4,19 @@ import * as React from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { animate, stagger } from "animejs"
-import { ArrowRight, MessageSquare, Bot, Database, Sparkles, BrainCircuit } from "lucide-react"
+import { ArrowRight, MessageSquare, Bot, Database, Sparkles, BrainCircuit, Play, Pause } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
 import { BeamsBackground } from "@/components/kokonutui/beams-background"
 import { ShimmerButton } from "@/components/kokonutui/shimmer-button"
 import { MarkerText, Mark } from "@/components/kokonutui/marker-text"
+import { Typewriter } from "@/components/ui/type-writer"
 
 export function Hero() {
   const { owner } = portfolioData
   const shouldReduceMotion = useReducedMotion()
   const nameRef = React.useRef<HTMLHeadingElement>(null)
   const svgLineRef = React.useRef<SVGPathElement>(null)
+  const [isTypingPaused, setIsTypingPaused] = React.useState(false)
 
   React.useEffect(() => {
     if (shouldReduceMotion) return
@@ -68,31 +70,17 @@ export function Hero() {
                 <span className="sm:hidden">IIT Madras BS • Data Science</span>
               </div>
 
-              {/* Animated Name in Editorial Serif */}
+              {/* Static Name in Editorial Serif */}
               <h1
                 ref={nameRef}
                 data-glass-type="text"
                 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-foreground leading-[1.08] mb-2"
               >
-                {shouldReduceMotion ? (
-                  owner.name
-                ) : (
-                  <span className="inline-block">
-                    {nameLetters.map((char, index) => (
-                      <span
-                        key={index}
-                        className="anime-letter inline-block"
-                        style={{ whiteSpace: char === " " ? "pre" : "normal" }}
-                      >
-                        {char}
-                      </span>
-                    ))}
-                  </span>
-                )}
+                {owner.name}
               </h1>
 
               {/* SVG Dynamic Underline in Warm Orange Gradient */}
-              <div className="w-48 sm:w-60 h-3 mb-5">
+              <div className="w-48 sm:w-60 h-3 mb-4">
                 <svg className="w-full h-full overflow-visible" viewBox="0 0 200 12" fill="none">
                   <path
                     ref={svgLineRef}
@@ -109,6 +97,35 @@ export function Hero() {
                     </linearGradient>
                   </defs>
                 </svg>
+              </div>
+
+              {/* Large Rotating Typewriter Subtitle */}
+              <div className="flex items-center gap-2 mb-5 w-full justify-center md:justify-start">
+                <Typewriter
+                  as="h2"
+                  sequences={[
+                    { text: "Data Science & AI Engineer", deleteAfter: true },
+                    { text: "Multi-Agent Systems Builder", deleteAfter: true },
+                    { text: "Google ADK Developer", deleteAfter: true },
+                    { text: "IIT Madras BS Student", deleteAfter: true },
+                  ]}
+                  deleteMode="select"
+                  naturalVariance={true}
+                  autoLoop={true}
+                  typos={false}
+                  paused={isTypingPaused}
+                  className="w-auto inline-flex justify-center md:justify-start"
+                  textClassName="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-accent tracking-tight"
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsTypingPaused((prev) => !prev)}
+                  aria-label={isTypingPaused ? "Resume typing animation" : "Pause typing animation"}
+                  className="p-1.5 rounded-lg border border-border/80 text-muted-foreground hover:text-accent hover:border-accent/40 bg-card/60 transition-colors shrink-0 cursor-pointer"
+                  title={isTypingPaused ? "Play" : "Pause"}
+                >
+                  {isTypingPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
+                </button>
               </div>
 
               {/* Tagline / Subtitle */}
@@ -149,7 +166,9 @@ export function Hero() {
                   <div className="text-[11px] text-muted-foreground font-mono mt-0.5">Google ADK</div>
                 </div>
                 <div className="text-center md:text-left">
-                  <div className="text-lg sm:text-2xl font-serif font-bold text-foreground">9</div>
+                  <div className="text-lg sm:text-2xl font-serif font-bold text-foreground">
+                    {portfolioData.certifications.length}
+                  </div>
                   <div className="text-[11px] text-muted-foreground font-mono mt-0.5">Certifications</div>
                 </div>
                 <div className="text-center md:text-left">

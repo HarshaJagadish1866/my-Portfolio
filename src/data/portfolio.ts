@@ -57,10 +57,13 @@ export interface CertificationItem {
   title: string
   issuer: string
   date: string
+  expires?: string | null
   skills: string[]
   credentialUrl?: string | null
   credentialId?: string | null
+  details?: string | null
   badgeText?: string
+  isAttendanceLetter?: boolean
 }
 
 export type SkillCategory = "AI and Agents" | "Programming" | "Data" | "Security"
@@ -192,13 +195,26 @@ export const portfolioData: PortfolioData = {
 
   certifications: [
     {
+      id: "cert-caltech-sagan",
+      title: "2026 Sagan Summer Workshop",
+      issuer: "IPAC at Caltech",
+      date: "Jul 2026",
+      skills: [],
+      details: "Exoplanets With Roman surveys: Microlensing and Transits.",
+      badgeText: "Letter of Attendance",
+      isAttendanceLetter: true,
+      credentialUrl: "https://nexsci.caltech.edu/workshop/2026/",
+      credentialId: null,
+    },
+    {
       id: "cert-google-prompting",
       title: "Google Prompting Essentials",
       issuer: "Google",
       date: "Aug 2026",
-      skills: ["AI", "Machine Learning", "Prompt Engineering"],
-      credentialUrl: null,
-      credentialId: null,
+      skills: ["Artificial Intelligence", "Machine Learning"],
+      details: "Course certificate on writing effective prompts.",
+      credentialId: "Z7YAVTUDVTDT",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/specialization/certificate/ZPXAV5U3Y9O7",
     },
     {
       id: "cert-google-ai-essentials",
@@ -206,16 +222,18 @@ export const portfolioData: PortfolioData = {
       issuer: "Google",
       date: "Aug 2026",
       skills: ["AI Literacy", "Model Training"],
-      credentialUrl: null,
-      credentialId: null,
+      details: "Course certificate covering an introduction to AI.",
+      credentialId: "H3R9PZUBXQQU",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/specialization/certificate/A4WPDKR8OJ0U",
     },
     {
       id: "cert-kaggle-vibe-coding",
       title: "5-Day AI Agents: Intensive Vibe Coding Course",
       issuer: "Kaggle",
       date: "Jul 2026",
-      skills: ["AI-Assisted Development", "Agentic Workflows"],
-      credentialUrl: null,
+      skills: [],
+      details: "Course badge.",
+      credentialUrl: "https://www.kaggle.com/certification/badges/harshajagadish/108",
       credentialId: null,
     },
     {
@@ -223,26 +241,29 @@ export const portfolioData: PortfolioData = {
       title: "Summer Analytics 2026",
       issuer: "Consulting & Analytics Club, IIT Guwahati",
       date: "Apr 2026",
-      skills: ["Data Analysis", "Machine Learning"],
-      credentialUrl: null,
-      credentialId: null,
+      skills: [],
+      details: "A 6-week program focused on Data Science and Machine Learning.",
+      credentialId: "c82de81d-e6b2-4fdb-ac49-8c9eca1d4c89",
+      credentialUrl: "https://certificate.givemycertificate.com/c/8fc484f8-b0e0-45bb-aca6-de8ecafa5e86",
     },
     {
       id: "cert-gemini-student",
       title: "Gemini Certified University Student",
       issuer: "Google for Education",
       date: "Apr 2026",
-      skills: ["AI Literacy", "Prompt Engineering"],
-      credentialUrl: null,
-      credentialId: null,
+      expires: "Apr 2028",
+      skills: [],
+      details: "Demonstrates fundamental knowledge of generative AI concepts and Gemini's core features.",
+      credentialId: "172403069",
+      credentialUrl: "https://edu.google.accredible.com/162a6488-9b67-4ad5-b4a8-db2b7b866bf2#acc.8Nj7dPMt",
     },
     {
       id: "cert-iitm-cybersecurity",
       title: "Web Trapped: Cybersecurity 101",
-      issuer: "Sunderbans House, IITM BS Degree",
+      issuer: "Sunderbans House IITM BS Degree",
       date: "Jan 2026",
       skills: ["Cybersecurity"],
-      credentialUrl: null,
+      credentialUrl: "",
       credentialId: null,
     },
     {
@@ -251,8 +272,9 @@ export const portfolioData: PortfolioData = {
       issuer: "Forage",
       date: "Jan 2026",
       skills: ["Data Analysis", "Data Modeling"],
-      credentialUrl: null,
-      credentialId: null,
+      details: "Job simulation involving data analysis and forensic technology.",
+      credentialId: "v3HwpwQ8ZP4kL2jNq",
+      credentialUrl: "https://www.theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_697a2d5265fc24856b63786b_1769677005650_completion_certificate.pdf",
     },
     {
       id: "cert-kaggle-agents-google",
@@ -260,7 +282,8 @@ export const portfolioData: PortfolioData = {
       issuer: "Kaggle",
       date: "Dec 2025",
       skills: ["Google Agent Development Kit (ADK)", "Multi-agent Systems"],
-      credentialUrl: null,
+      details: "Course badge.",
+      credentialUrl: "https://www.kaggle.com/certification/badges/harshajagadish/105",
       credentialId: null,
     },
     {
@@ -269,7 +292,7 @@ export const portfolioData: PortfolioData = {
       issuer: "HackerRank",
       date: "Dec 2025",
       skills: ["Python"],
-      credentialUrl: null,
+      credentialUrl: "https://www.hackerrank.com/certificates/41b5cf79c901",
       credentialId: null,
     },
   ],

@@ -8,7 +8,7 @@ import { portfolioData } from "@/data/portfolio"
 import { ProjectViewCounter } from "@/components/sections/project-view-counter"
 import { GithubRepoStats } from "@/components/github-repo-stats"
 import { trackProjectLinkClick } from "@/lib/analytics"
-import { MarkerText, Mark } from "@/components/kokonutui/marker-text"
+import { Typewriter } from "@/components/ui/type-writer"
 
 export function Projects() {
   const { projects } = portfolioData
@@ -29,9 +29,16 @@ export function Projects() {
           <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
             05
           </span>
-          <MarkerText as="h2" className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
-            Featured <Mark type="underline" color="var(--accent)">Projects</Mark>
-          </MarkerText>
+          <Typewriter
+            as="h2"
+            sequences={[{ text: "Featured Projects", deleteAfter: false }]}
+            autoLoop={false}
+            startDelay={150}
+            typingSpeed={40}
+            naturalVariance={true}
+            className="w-auto inline-flex justify-start"
+            textClassName="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight"
+          />
           <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
         </motion.div>
 

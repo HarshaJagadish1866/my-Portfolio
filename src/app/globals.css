@@ -110,6 +110,14 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Custom Global Liquid Glass Cursor - Desktop Fine Pointer Only */
+@media (min-width: 768px) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
 /* Accessibility: Clear Keyboard Focus Ring */
 :focus-visible {
   outline: 2px solid var(--accent);

@@ -4,7 +4,7 @@ import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { GraduationCap, Calendar, Award, CheckCircle } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
-import { MarkerText, Mark } from "@/components/kokonutui/marker-text"
+import { Typewriter } from "@/components/ui/type-writer"
 
 export function Education() {
   const { education } = portfolioData
@@ -25,9 +25,16 @@ export function Education() {
           <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
             03
           </span>
-          <MarkerText as="h2" className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
-            <Mark type="underline" color="var(--accent)">Education</Mark> & Journey
-          </MarkerText>
+          <Typewriter
+            as="h2"
+            sequences={[{ text: "Education & Journey", deleteAfter: false }]}
+            autoLoop={false}
+            startDelay={150}
+            typingSpeed={40}
+            naturalVariance={true}
+            className="w-auto inline-flex justify-start"
+            textClassName="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight"
+          />
           <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
         </motion.div>
 

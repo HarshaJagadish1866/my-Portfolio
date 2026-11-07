@@ -93,7 +93,11 @@ export function IssuerLogoTile({ issuer }: { issuer: string }) {
     icon = <ForageLogo className="w-6 h-6" />
   } else if (norm.includes("consulting") || norm.includes("analytics club")) {
     icon = <AnalyticsClubLogo className="w-6 h-6" />
-  } else if (norm.includes("iit") || norm.includes("madras") || norm.includes("guwahati") || norm.includes("sunderbans")) {
+  } else if (norm.includes("caltech") || norm.includes("ipac")) {
+    icon = <span className="text-[11px] font-mono font-bold text-amber-900 tracking-tight">IPAC</span>
+  } else if (norm.includes("sunderbans")) {
+    icon = <span className="text-[11px] font-mono font-bold text-emerald-900 tracking-tight">IITM</span>
+  } else if (norm.includes("iit") || norm.includes("madras") || norm.includes("guwahati")) {
     icon = <IITLogo className="w-6 h-6" />
   } else {
     // Elegant monogram / initials tile

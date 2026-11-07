@@ -4,7 +4,7 @@ import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { Guestbook } from "@/components/sections/guestbook"
 import { DevJokeWidget } from "@/components/dev-joke-widget"
-import { MarkerText, Mark } from "@/components/kokonutui/marker-text"
+import { Typewriter } from "@/components/ui/type-writer"
 
 export function ContactAndGuestbook() {
   const shouldReduceMotion = useReducedMotion()
@@ -25,9 +25,16 @@ export function ContactAndGuestbook() {
             <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
               07
             </span>
-            <MarkerText as="h2" className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
-              Sign the <Mark type="underline" color="var(--accent)">Guestbook</Mark>
-            </MarkerText>
+            <Typewriter
+              as="h2"
+              sequences={[{ text: "Sign the Guestbook", deleteAfter: false }]}
+              autoLoop={false}
+              startDelay={150}
+              typingSpeed={40}
+              naturalVariance={true}
+              className="w-auto inline-flex justify-start"
+              textClassName="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight"
+            />
             <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
           </div>
           <p className="text-sm sm:text-base text-muted-foreground ml-7 sm:ml-9">
