@@ -1,5 +1,5 @@
 import { portfolioData } from "@/data/portfolio"
-import { IntroReveal } from "@/components/intro-reveal"
+import { IntroSequence } from "@/components/IntroSequence"
 import { Hero } from "@/components/sections/hero"
 import { StatsStrip } from "@/components/sections/stats-strip"
 import { About } from "@/components/sections/about"
@@ -14,7 +14,7 @@ export default function Home() {
   const { owner } = portfolioData
 
   return (
-    <IntroReveal>
+    <IntroSequence>
       <main id="main-content" className="flex-1 flex flex-col">
         {/* 1. Hero Section */}
         <Hero />
@@ -43,6 +43,6 @@ export default function Home() {
         {/* 8. Footer */}
         <Footer />
       </main>
-    </IntroReveal>
+    </IntroSequence>
   )
 }
