@@ -56,7 +56,7 @@ export default function RootLayout({
     name: portfolioData.owner.name,
     jobTitle: "Data Science & AI Engineer",
     url: siteUrl,
-    image: `${siteUrl}/photo.jpg`,
+    image: `${siteUrl}/harsha-jagadish.png`,
     description: portfolioData.owner.aboutMe,
     sameAs: portfolioData.owner.socialLinks
       .map((s) => s.href)

@@ -136,7 +136,7 @@ export const portfolioData: PortfolioData = {
       accentColor: "#F26B21", // Vivid Orange
       vibe: "Warm Editorial Beige & Vivid Orange",
     },
-    photoUrl: "/photo.jpg",
+    photoUrl: "/harsha-jagadish.png",
     resumeUrl: "/Harsha_Jagadish_Resume_2026.pdf",
   },
 
