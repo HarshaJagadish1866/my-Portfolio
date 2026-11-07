@@ -4,10 +4,11 @@ import * as React from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { animate, stagger } from "animejs"
-import { ArrowRight, Mail, Bot, Database, Sparkles, BrainCircuit } from "lucide-react"
+import { ArrowRight, MessageSquare, Bot, Database, Sparkles, BrainCircuit } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
 import { BeamsBackground } from "@/components/kokonutui/beams-background"
 import { ShimmerButton } from "@/components/kokonutui/shimmer-button"
+import { MarkerText, Mark } from "@/components/kokonutui/marker-text"
 
 export function Hero() {
   const { owner } = portfolioData
@@ -111,11 +112,15 @@ export function Hero() {
               </div>
 
               {/* Tagline / Subtitle */}
-              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-xl mb-7 leading-relaxed">
-                Building autonomous{" "}
-                <span className="text-foreground font-semibold">multi-agent AI systems</span>,
-                LLM applications, and scalable data workflows for real-world impact.
-              </p>
+              <div className="max-w-xl mb-7">
+                <MarkerText as="p" className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed">
+                  Building autonomous{" "}
+                  <Mark type="highlight" color="var(--accent-soft)" className="text-foreground font-semibold px-1 py-0.5 rounded">
+                    multi-agent AI systems
+                  </Mark>
+                  , LLM applications, and scalable data workflows for real-world impact.
+                </MarkerText>
+              </div>
 
               {/* Call to Action Buttons */}
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 w-full sm:w-auto">
@@ -123,29 +128,29 @@ export function Hero() {
                 <Link href="#projects">
                   <ShimmerButton>
                     <span>View Projects</span>
-                    <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
                   </ShimmerButton>
                 </Link>
 
-                {/* 2. Contact Button */}
+                {/* 2. Guestbook Button */}
                 <Link
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border/80 bg-card hover:bg-secondary hover:border-primary/50 text-foreground text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xs cursor-pointer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border bg-surface hover:bg-surface/80 hover:border-accent/50 text-foreground text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xs cursor-pointer"
                 >
-                  <Mail className="w-4 h-4 text-primary" />
-                  <span>Contact</span>
+                  <MessageSquare className="w-4 h-4 text-accent" />
+                  <span>Guestbook</span>
                 </Link>
               </div>
 
-              {/* Verified Metrics Strip */}
-              <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-6 mt-6 border-t border-border/70 w-full max-w-lg">
+              {/* Metrics Strip */}
+              <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-6 mt-6 border-t border-border w-full max-w-lg">
                 <div className="text-center md:text-left">
                   <div className="text-lg sm:text-2xl font-serif font-bold text-foreground">Multi-Agent</div>
                   <div className="text-[11px] text-muted-foreground font-mono mt-0.5">Google ADK</div>
                 </div>
                 <div className="text-center md:text-left">
-                  <div className="text-lg sm:text-2xl font-serif font-bold text-foreground">9 Verified</div>
-                  <div className="text-[11px] text-muted-foreground font-mono mt-0.5">Certificates</div>
+                  <div className="text-lg sm:text-2xl font-serif font-bold text-foreground">9</div>
+                  <div className="text-[11px] text-muted-foreground font-mono mt-0.5">Certifications</div>
                 </div>
                 <div className="text-center md:text-left">
                   <div className="text-lg sm:text-2xl font-serif font-bold text-foreground">IIT Madras</div>

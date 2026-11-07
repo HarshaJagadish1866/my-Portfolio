@@ -43,14 +43,7 @@ export function trackResumeDownload() {
   })
 }
 
-// 2. Contact form submission event
-export function trackContactSubmit() {
-  trackEvent("contact_submit", {
-    method: "contact_form",
-  })
-}
-
-// 3. Project link click event
+// 2. Project link click event
 export function trackProjectLinkClick(projectName: string, linkType: "github" | "live") {
   trackEvent("project_link_click", {
     project_name: projectName,

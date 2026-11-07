@@ -18,7 +18,7 @@ export function Navbar() {
     { href: "#skills", label: "Skills" },
     { href: "#projects", label: "Projects" },
     { href: "#certifications", label: "Certificates" },
-    { href: "#contact", label: "Contact" },
+    { href: "#contact", label: "Guestbook" },
   ]
 
   React.useEffect(() => {
@@ -78,7 +78,7 @@ export function Navbar() {
             rel="noopener noreferrer"
             onClick={trackResumeDownload}
             data-glass-type="button"
-            className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
+            className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-accent hover:bg-accent-strong text-white shadow-sm shadow-accent/20 hover:-translate-y-0.5 transition-all cursor-pointer"
           >
             <ArrowDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-y-1" />
             <span>Resume</span>
@@ -129,7 +129,7 @@ export function Navbar() {
                     trackResumeDownload()
                     setMobileMenuOpen(false)
                   }}
-                  className="group w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 cursor-pointer transition-all"
+                  className="group w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-accent hover:bg-accent-strong text-white shadow-sm shadow-accent/20 cursor-pointer transition-all"
                 >
                   <ArrowDown className="w-4 h-4 transition-transform duration-200 group-hover:translate-y-1" />
                   <span>Resume</span>

@@ -14,60 +14,50 @@ export const supabase = isSupabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null
 
-export interface ContactMessagePayload {
-  name: string
-  email: string
-  message: string
-}
-
 export interface GuestbookEntry {
   id?: string
   name: string
+  linkedin_username?: string | null
   message: string
   approved?: boolean
   created_at?: string
 }
 
-// 1. Submit Contact Message
-export async function submitContactMessage(payload: ContactMessagePayload) {
+// 1. Submit Guestbook Entry (Defaults to approved = false)
+export async function submitGuestbookEntry(
+  name: string,
+  message: string,
+  linkedinUsername?: string | null
+) {
   if (!isSupabaseConfigured || !supabase) {
     return {
       success: false,
-      error: "Supabase is not configured yet. Please add your credentials to .env.local.",
+      error: "Database configuration is missing. Please check your environment variables.",
     }
   }
 
-  const { error } = await supabase.from("contact_messages").insert([
-    {
-      name: payload.name.trim(),
-      email: payload.email.trim(),
-      message: payload.message.trim(),
-    },
-  ])
-
-  if (error) {
-    return { success: false, error: error.message }
+  const payload: Record<string, any> = {
+    name: name.trim(),
+    message: message.trim(),
+    approved: false,
   }
 
-  return { success: true }
-}
-
-// 2. Submit Guestbook Entry (Defaults to approved = false)
-export async function submitGuestbookEntry(name: string, message: string) {
-  if (!isSupabaseConfigured || !supabase) {
-    return {
-      success: false,
-      error: "Supabase is not configured yet. Please add your credentials to .env.local.",
-    }
+  if (linkedinUsername) {
+    payload.linkedin_username = linkedinUsername.trim()
   }
 
-  const { error } = await supabase.from("guestbook").insert([
-    {
+  let { error } = await supabase.from("guestbook").insert([payload])
+
+  // Fallback if linkedin_username column was not yet added in Supabase
+  if (error && error.message?.includes("linkedin_username")) {
+    const fallbackPayload = {
       name: name.trim(),
       message: message.trim(),
       approved: false,
-    },
-  ])
+    }
+    const fallbackRes = await supabase.from("guestbook").insert([fallbackPayload])
+    error = fallbackRes.error
+  }
 
   if (error) {
     return { success: false, error: error.message }
@@ -76,7 +66,7 @@ export async function submitGuestbookEntry(name: string, message: string) {
   return { success: true }
 }
 
-// 3. Fetch Approved Guestbook Entries with timeout and error tracking
+// 2. Fetch Approved Guestbook Entries with timeout and error tracking
 export async function getApprovedGuestbookEntries(): Promise<{
   data: GuestbookEntry[]
   error: string | null
@@ -84,7 +74,7 @@ export async function getApprovedGuestbookEntries(): Promise<{
   if (!isSupabaseConfigured || !supabase) {
     return {
       data: [],
-      error: "Supabase is not configured yet. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your environment variables.",
+      error: "Database configuration missing. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your environment variables.",
     }
   }
 
@@ -95,17 +85,32 @@ export async function getApprovedGuestbookEntries(): Promise<{
 
     const fetchPromise = supabase
       .from("guestbook")
-      .select("id, name, message, created_at")
+      .select("id, name, linkedin_username, message, created_at")
       .eq("approved", true)
       .order("created_at", { ascending: false })
       .limit(25)
 
     const result = (await Promise.race([fetchPromise, timeoutPromise])) as {
       data: GuestbookEntry[] | null
-      error: { message: string } | null
+      error: { message: string; code?: string } | null
     }
 
     if (result.error) {
+      // Fallback if linkedin_username column does not exist yet
+      if (result.error.message?.includes("linkedin_username") || result.error.code === "42703") {
+        const fallbackRes = await supabase
+          .from("guestbook")
+          .select("id, name, message, created_at")
+          .eq("approved", true)
+          .order("created_at", { ascending: false })
+          .limit(25)
+
+        if (fallbackRes.error) {
+          return { data: [], error: fallbackRes.error.message }
+        }
+        return { data: (fallbackRes.data as GuestbookEntry[]) || [], error: null }
+      }
+
       return { data: [], error: result.error.message }
     }
 

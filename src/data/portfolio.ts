@@ -317,6 +317,6 @@ export const portfolioData: PortfolioData = {
     { id: "skills", label: "Skills" },
     { id: "projects", label: "Projects" },
     { id: "certifications", label: "Certifications" },
-    { id: "guestbook-contact", label: "Contact & Guestbook" },
+    { id: "contact", label: "Guestbook" },
   ],
 }

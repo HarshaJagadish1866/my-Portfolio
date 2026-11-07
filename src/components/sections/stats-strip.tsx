@@ -24,12 +24,12 @@ export function StatsStrip() {
       id: "certs",
       target: certCount,
       suffix: "+",
-      label: "Verified Credentials",
+      label: "Certifications",
       caption: "Google, Kaggle & IITs",
       icon: Award,
-      color: "text-orange-600 dark:text-orange-400",
-      bg: "bg-orange-500/10",
-      border: "border-orange-500/25",
+      color: "text-accent",
+      bg: "bg-accent-soft",
+      border: "border-accent/25",
     },
     {
       id: "projects",
@@ -38,9 +38,9 @@ export function StatsStrip() {
       label: "Multi-Agent Projects",
       caption: "Arbitr-AI & Voyager",
       icon: Terminal,
-      color: "text-amber-600 dark:text-amber-400",
-      bg: "bg-amber-500/10",
-      border: "border-amber-500/25",
+      color: "text-accent-strong",
+      bg: "bg-accent-soft",
+      border: "border-accent/25",
     },
     {
       id: "skills",
@@ -49,9 +49,9 @@ export function StatsStrip() {
       label: "Technical Skills",
       caption: "AI, Agents, Data & Security",
       icon: Sparkles,
-      color: "text-primary-dark dark:text-primary",
-      bg: "bg-primary/10",
-      border: "border-primary/25",
+      color: "text-accent",
+      bg: "bg-accent-soft",
+      border: "border-accent/25",
     },
     {
       id: "categories",
@@ -60,9 +60,9 @@ export function StatsStrip() {
       label: "Specialized Domains",
       caption: "AI, Code, Data, Security",
       icon: Layers,
-      color: "text-emerald-600 dark:text-emerald-400",
-      bg: "bg-emerald-500/10",
-      border: "border-emerald-500/25",
+      color: "text-accent-strong",
+      bg: "bg-accent-soft",
+      border: "border-accent/25",
     },
   ]
 
@@ -104,7 +104,7 @@ export function StatsStrip() {
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">
-                    Computed Metric
+                    0{idx + 1}
                   </span>
                   <div className={`p-2 rounded-xl ${stat.bg} ${stat.border} border`}>
                     <Icon className={`w-4 h-4 ${stat.color}`} />

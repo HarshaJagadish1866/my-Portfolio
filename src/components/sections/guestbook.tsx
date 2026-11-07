@@ -1,9 +1,37 @@
 "use client"
 
 import * as React from "react"
-import { motion, AnimatePresence } from "motion/react"
+import { motion } from "motion/react"
 import { MessageSquare, Sparkles, CheckCircle2, Clock, Send, Loader2, AlertCircle, RefreshCw } from "lucide-react"
 import { submitGuestbookEntry, getApprovedGuestbookEntries, type GuestbookEntry } from "@/lib/supabase"
+import { LinkedInIcon } from "@/components/icons/social-icons"
+
+function extractAndValidateLinkedIn(input: string): { valid: boolean; username: string | null; error?: string } {
+  const trimmed = input.trim()
+  if (!trimmed) {
+    return { valid: true, username: null }
+  }
+
+  // Strip full URLs (e.g. https://www.linkedin.com/in/username/ or linkedin.com/in/username)
+  const cleaned = trimmed
+    .replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//i, "")
+    .replace(/^linkedin\.com\/in\//i, "")
+    .replace(/^\/?in\//i, "")
+    .replace(/\/+$/, "")
+    .trim()
+
+  // Letters, numbers, and hyphens only, 3 to 100 characters
+  const validRegex = /^[a-zA-Z0-9-]{3,100}$/
+  if (!validRegex.test(cleaned)) {
+    return {
+      valid: false,
+      username: null,
+      error: "LinkedIn username should be 3–100 characters using only letters, numbers, and hyphens.",
+    }
+  }
+
+  return { valid: true, username: cleaned }
+}
 
 export function Guestbook() {
   const [entries, setEntries] = React.useState<GuestbookEntry[]>([])
@@ -11,6 +39,7 @@ export function Guestbook() {
   const [loadError, setLoadError] = React.useState<string | null>(null)
 
   const [name, setName] = React.useState("")
+  const [linkedin, setLinkedin] = React.useState("")
   const [message, setMessage] = React.useState("")
   const [honeypot, setHoneypot] = React.useState("")
   const [submitting, setSubmitting] = React.useState(false)
@@ -29,7 +58,7 @@ export function Guestbook() {
         setEntries(res.data)
       }
     } catch (err: any) {
-      setLoadError(err?.message || "Failed to connect to database.")
+      setLoadError(err?.message || "Failed to load entries.")
       setEntries([])
     } finally {
       setLoadingEntries(false)
@@ -48,6 +77,7 @@ export function Guestbook() {
       setStatus("success")
       setFeedback("Thanks! Your note will appear after I approve it.")
       setName("")
+      setLinkedin("")
       setMessage("")
       return
     }
@@ -74,6 +104,14 @@ export function Guestbook() {
       return
     }
 
+    // LinkedIn Validation (Optional)
+    const linkedinResult = extractAndValidateLinkedIn(linkedin)
+    if (!linkedinResult.valid) {
+      setStatus("error")
+      setFeedback(linkedinResult.error || "Please enter a valid LinkedIn username.")
+      return
+    }
+
     // 3. Simple Rate Limit (30 seconds cooldown per session)
     const lastSentTime = sessionStorage.getItem("last_guestbook_sent")
     const now = Date.now()
@@ -89,13 +127,14 @@ export function Guestbook() {
     setFeedback("")
 
     try {
-      const result = await submitGuestbookEntry(cleanName, cleanMessage)
+      const result = await submitGuestbookEntry(cleanName, cleanMessage, linkedinResult.username)
 
       if (result.success) {
         sessionStorage.setItem("last_guestbook_sent", now.toString())
         setStatus("success")
         setFeedback("Thanks! Your note will appear after I approve it.")
         setName("")
+        setLinkedin("")
         setMessage("")
       } else {
         setStatus("error")
@@ -110,176 +149,212 @@ export function Guestbook() {
   }
 
   return (
-    <div className="p-7 sm:p-9 rounded-3xl bg-secondary/30 border border-border/70 backdrop-blur-md shadow-sm flex flex-col justify-between">
-      <div>
-        <div className="flex items-center justify-between gap-3 mb-6">
-          <div>
-            <h3 className="text-xl font-bold text-foreground">Community Guestbook</h3>
-            <p className="text-xs text-muted-foreground mt-1">
-              Leave a public note or testimonial for other visitors to see.
-            </p>
-          </div>
-          <div className="h-10 w-10 rounded-2xl bg-primary/10 border border-primary/25 text-primary flex items-center justify-center shrink-0">
-            <MessageSquare className="w-5 h-5" />
-          </div>
+    <div className="p-7 sm:p-9 rounded-3xl bg-surface border border-border/80 backdrop-blur-md shadow-sm">
+      <div className="flex items-center justify-between gap-3 mb-6">
+        <div>
+          <h3 className="text-xl font-bold font-serif text-foreground">Leave a Note</h3>
+          <p className="text-xs text-muted-foreground mt-1">
+            Sign the guestbook with your name and optional LinkedIn profile.
+          </p>
+        </div>
+        <div className="h-10 w-10 rounded-2xl bg-accent-soft text-accent border border-accent/25 flex items-center justify-center shrink-0">
+          <MessageSquare className="w-5 h-5" />
+        </div>
+      </div>
+
+      {/* Submit Form */}
+      <form onSubmit={handleSubmit} className="space-y-4 mb-8">
+        {/* Hidden Honeypot Field */}
+        <div style={{ display: "none" }} aria-hidden="true">
+          <label htmlFor="guestbook_website_bot_check">Leave this field blank</label>
+          <input
+            id="guestbook_website_bot_check"
+            type="text"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+          />
         </div>
 
-        {/* Submit Form */}
-        <form onSubmit={handleSubmit} className="space-y-3.5 mb-8">
-          {/* Hidden Honeypot Field */}
-          <div style={{ display: "none" }} aria-hidden="true">
-            <label htmlFor="guestbook_website_bot_check">Leave this field blank</label>
-            <input
-              id="guestbook_website_bot_check"
-              type="text"
-              value={honeypot}
-              onChange={(e) => setHoneypot(e.target.value)}
-              tabIndex={-1}
-              autoComplete="off"
-            />
-          </div>
+        <div>
+          <label htmlFor="guestbook-name" className="block text-xs font-mono text-muted-foreground mb-1.5">
+            Your Name *
+          </label>
+          <input
+            id="guestbook-name"
+            type="text"
+            required
+            maxLength={50}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="e.g. Alex Chen"
+            className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-muted-foreground/60"
+          />
+        </div>
 
-          <div>
-            <label htmlFor="guestbook-name" className="sr-only">
-              Your Name or Handle
+        <div>
+          <div className="flex items-center justify-between mb-1.5">
+            <label htmlFor="guestbook-linkedin" className="block text-xs font-mono text-muted-foreground">
+              LinkedIn username (optional)
             </label>
-            <input
-              id="guestbook-name"
-              type="text"
-              required
-              maxLength={50}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Your Name or Handle"
-              className="w-full px-4 py-2.5 rounded-xl bg-card border border-border/70 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/60"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="guestbook-message" className="sr-only">
-              Your Note
-            </label>
-            <textarea
-              id="guestbook-message"
-              required
-              rows={2}
-              maxLength={500}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Leave a short note or encouragement (max 500 chars)..."
-              className="w-full px-4 py-2.5 rounded-xl bg-card border border-border/70 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/60 resize-none"
-            />
-          </div>
-
-          {/* Status Alert */}
-          {status !== "idle" && feedback && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`p-3 rounded-xl text-xs font-mono flex items-start gap-2 ${
-                status === "success"
-                  ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
-                  : "bg-rose-500/10 border border-rose-500/30 text-rose-400"
-              }`}
-            >
-              {status === "success" ? (
-                <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
-              ) : (
-                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-              )}
-              <span>{feedback}</span>
-            </motion.div>
-          )}
-
-          <div className="flex items-center justify-between gap-3 pt-1">
-            <span className="text-[11px] font-mono text-muted-foreground flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-primary" />
-              <span>Moderated via Supabase</span>
+            <span className="text-[11px] font-mono text-muted-foreground/80">
+              the part after linkedin.com/in/
             </span>
+          </div>
+          <input
+            id="guestbook-linkedin"
+            type="text"
+            maxLength={100}
+            value={linkedin}
+            onChange={(e) => setLinkedin(e.target.value)}
+            placeholder="e.g. harsha-jagadish3200671866"
+            className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-muted-foreground/60"
+          />
+        </div>
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className="py-2.5 px-4 rounded-xl font-semibold text-xs bg-card border border-border/80 hover:border-primary/50 hover:bg-secondary text-foreground transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {submitting ? (
+        <div>
+          <label htmlFor="guestbook-message" className="block text-xs font-mono text-muted-foreground mb-1.5">
+            Message *
+          </label>
+          <textarea
+            id="guestbook-message"
+            required
+            rows={3}
+            maxLength={500}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Leave a short note, advice, or feedback (max 500 chars)..."
+            className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-muted-foreground/60 resize-none"
+          />
+        </div>
+
+        {/* Status Alert */}
+        {status !== "idle" && feedback && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={`p-3 rounded-xl text-xs font-mono flex items-start gap-2 ${
+              status === "success"
+                ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+                : "bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400"
+            }`}
+          >
+            {status === "success" ? (
+              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+            ) : (
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+            )}
+            <span>{feedback}</span>
+          </motion.div>
+        )}
+
+        <div className="flex items-center justify-between gap-3 pt-1">
+          <span className="text-[11px] font-mono text-muted-foreground flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5 text-accent" />
+            <span>Moderated before publishing</span>
+          </span>
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="py-2.5 px-5 rounded-xl font-semibold text-xs bg-accent hover:bg-accent-strong text-white shadow-sm transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {submitting ? (
+              <>
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
-              ) : (
-                <Send className="w-3.5 h-3.5 text-primary" />
-              )}
-              <span>Sign Guestbook</span>
+                <span>Submitting...</span>
+              </>
+            ) : (
+              <>
+                <Send className="w-3.5 h-3.5" />
+                <span>Sign Guestbook</span>
+              </>
+            )}
+          </button>
+        </div>
+      </form>
+
+      {/* Approved Entries Section */}
+      <div className="border-t border-border pt-6">
+        <div className="flex items-center justify-between mb-4 text-xs font-mono text-muted-foreground">
+          <span>Approved Entries</span>
+          <span>{loadingEntries ? "Loading..." : `${entries.length} Notes`}</span>
+        </div>
+
+        {/* 1. Loading Skeleton */}
+        {loadingEntries ? (
+          <div className="space-y-3">
+            {[1, 2].map((i) => (
+              <div
+                key={i}
+                className="p-4 rounded-2xl bg-background/50 border border-border animate-pulse"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="h-3.5 w-28 bg-muted-foreground/20 rounded" />
+                  <div className="h-2.5 w-16 bg-muted-foreground/15 rounded" />
+                </div>
+                <div className="h-3 w-4/5 bg-muted-foreground/15 rounded mb-1.5" />
+                <div className="h-3 w-1/2 bg-muted-foreground/10 rounded" />
+              </div>
+            ))}
+          </div>
+        ) : loadError ? (
+          /* 2. Error State with Retry Button */
+          <div className="py-6 px-4 text-center rounded-2xl bg-rose-500/10 border border-rose-500/20 text-xs">
+            <AlertCircle className="w-5 h-5 text-rose-500 mx-auto mb-2" />
+            <p className="text-rose-600 dark:text-rose-300 font-mono text-xs mb-3 leading-relaxed">
+              {loadError}
+            </p>
+            <button
+              type="button"
+              onClick={loadEntries}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-surface hover:bg-surface/80 text-foreground text-xs font-medium border border-border transition-colors cursor-pointer"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>Retry Connection</span>
             </button>
           </div>
-        </form>
-
-        {/* Approved Entries Section */}
-        <div className="border-t border-border/50 pt-5">
-          <div className="flex items-center justify-between mb-3 text-xs font-mono text-muted-foreground">
-            <span>Approved Signatures</span>
-            <span>{loadingEntries ? "Loading..." : `${entries.length} Entries`}</span>
-          </div>
-
-          {/* 1. Loading Skeleton */}
-          {loadingEntries ? (
-            <div className="space-y-2.5">
-              {[1, 2].map((i) => (
-                <div
-                  key={i}
-                  className="p-3.5 rounded-xl bg-card/40 border border-border/50 animate-pulse"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="h-3.5 w-24 bg-muted/60 rounded" />
-                    <div className="h-2.5 w-14 bg-muted/40 rounded" />
-                  </div>
-                  <div className="h-3 w-3/4 bg-muted/40 rounded mb-1" />
-                  <div className="h-3 w-1/2 bg-muted/30 rounded" />
-                </div>
-              ))}
-            </div>
-          ) : loadError ? (
-            /* 2. Error State with Retry Button */
-            <div className="py-6 px-4 text-center rounded-2xl bg-rose-500/10 border border-rose-500/20 text-xs">
-              <AlertCircle className="w-5 h-5 text-rose-400 mx-auto mb-2" />
-              <p className="text-rose-300 font-mono text-xs mb-3 leading-relaxed">
-                {loadError}
-              </p>
-              <button
-                type="button"
-                onClick={loadEntries}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-secondary hover:bg-secondary/80 text-foreground text-xs font-medium border border-border/80 transition-colors cursor-pointer"
+        ) : entries.length > 0 ? (
+          /* 3. Approved Entries List */
+          <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
+            {entries.map((entry, idx) => (
+              <div
+                key={entry.id || idx}
+                className="p-4 rounded-2xl bg-background/70 border border-border text-xs hover:border-accent/40 transition-colors shadow-2xs"
               >
-                <RefreshCw className="w-3.5 h-3.5" />
-                <span>Retry Connection</span>
-              </button>
-            </div>
-          ) : entries.length > 0 ? (
-            /* 3. Approved Entries List */
-            <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
-              {entries.map((entry, idx) => (
-                <div
-                  key={entry.id || idx}
-                  className="p-3.5 rounded-xl bg-card/60 border border-border/60 text-xs hover:border-primary/40 transition-colors"
-                >
-                  <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center justify-between mb-1.5">
+                  {entry.linkedin_username ? (
+                    <a
+                      href={`https://www.linkedin.com/in/${encodeURIComponent(entry.linkedin_username)}`}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow ugc"
+                      className="group inline-flex items-center gap-1.5 font-semibold text-foreground hover:text-accent transition-colors"
+                      title={`View ${entry.name}'s LinkedIn profile`}
+                    >
+                      <span>{entry.name}</span>
+                      <LinkedInIcon className="w-3 h-3 text-muted-foreground group-hover:text-accent transition-colors" />
+                    </a>
+                  ) : (
                     <span className="font-semibold text-foreground">{entry.name}</span>
-                    <span className="text-[10px] font-mono text-muted-foreground">
-                      {entry.created_at ? new Date(entry.created_at).toLocaleDateString() : "Recent"}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {entry.message}
-                  </p>
+                  )}
+                  <span className="text-[10px] font-mono text-muted-foreground">
+                    {entry.created_at ? new Date(entry.created_at).toLocaleDateString() : "Recent"}
+                  </span>
                 </div>
-              ))}
-            </div>
-          ) : (
-            /* 4. Empty State */
-            <div className="py-8 text-center rounded-2xl bg-card/30 border border-border/40 text-xs font-mono text-muted-foreground">
-              <Sparkles className="w-4 h-4 text-primary mx-auto mb-2 opacity-60" />
-              <span>Be the first to sign!</span>
-            </div>
-          )}
-        </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  {entry.message}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* 4. Empty State */
+          <div className="py-8 text-center rounded-2xl bg-background/40 border border-border/60 text-xs font-mono text-muted-foreground">
+            <Sparkles className="w-4 h-4 text-accent mx-auto mb-2 opacity-70" />
+            <span>Be the first to sign!</span>
+          </div>
+        )}
       </div>
     </div>
   )

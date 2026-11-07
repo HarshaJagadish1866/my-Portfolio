@@ -2,16 +2,16 @@
 
 import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
-import { ContactForm } from "@/components/sections/contact-form"
 import { Guestbook } from "@/components/sections/guestbook"
 import { DevJokeWidget } from "@/components/dev-joke-widget"
+import { MarkerText, Mark } from "@/components/kokonutui/marker-text"
 
 export function ContactAndGuestbook() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section id="contact" className="py-20 sm:py-24 border-t border-border/60 scroll-mt-20 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="contact" className="py-20 sm:py-24 border-t border-border scroll-mt-20 relative">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Section Header: Number + Serif Title + Extending Line */}
         <motion.div
@@ -19,25 +19,29 @@ export function ContactAndGuestbook() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.35 }}
-          className="flex items-baseline gap-3 mb-10 sm:mb-14"
+          className="mb-8 sm:mb-12"
         >
-          <span className="text-xs sm:text-sm font-mono text-primary font-semibold tracking-wider">
-            07
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
-            Connect & Guestbook
-          </h2>
-          <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
+          <div className="flex items-baseline gap-3 mb-2">
+            <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
+              07
+            </span>
+            <MarkerText as="h2" className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
+              Sign the <Mark type="underline" color="var(--accent)">Guestbook</Mark>
+            </MarkerText>
+            <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
+          </div>
+          <p className="text-sm sm:text-base text-muted-foreground ml-7 sm:ml-9">
+            Leave a note, a thought, or a hello.
+          </p>
         </motion.div>
 
-        {/* 2-Column Grid: Contact Form (Left) & Guestbook (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-          <ContactForm />
+        {/* Guestbook Card (Centered) */}
+        <div className="w-full">
           <Guestbook />
         </div>
 
         {/* Fun Widget: Dev Joke of the Day (Public API) */}
-        <div className="mt-12">
+        <div className="mt-10">
           <DevJokeWidget />
         </div>
 

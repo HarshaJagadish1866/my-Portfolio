@@ -3,6 +3,7 @@
 import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { portfolioData } from "@/data/portfolio"
+import { MarkerText, Mark } from "@/components/kokonutui/marker-text"
 
 // Distinctive emoji/glyph mapping matching the reference screenshot style
 const SKILL_ICONS: Record<string, string> = {
@@ -50,12 +51,12 @@ export function Skills() {
           transition={{ duration: 0.35 }}
           className="flex items-baseline gap-3 mb-10 sm:mb-14"
         >
-          <span className="text-xs sm:text-sm font-mono text-primary font-semibold tracking-wider">
+          <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
             04
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
-            Skills
-          </h2>
+          <MarkerText as="h2" className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
+            Core <Mark type="underline" color="var(--accent)">Skills</Mark>
+          </MarkerText>
           <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
         </motion.div>
 

@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react"
 import { portfolioData, type CertificationItem } from "@/data/portfolio"
 import { IssuerLogoTile } from "@/components/icons/issuer-logos"
 import { trackCertificateLinkClick } from "@/lib/analytics"
+import { MarkerText, Mark } from "@/components/kokonutui/marker-text"
 
 export function Certifications() {
   const shouldReduceMotion = useReducedMotion()
@@ -23,12 +24,12 @@ export function Certifications() {
           transition={{ duration: 0.35 }}
           className="flex items-baseline gap-3 mb-8 sm:mb-12"
         >
-          <span className="text-xs sm:text-sm font-mono text-primary font-semibold tracking-wider">
+          <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
             06
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
-            Certificates
-          </h2>
+          <MarkerText as="h2" className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
+            Earned <Mark type="underline" color="var(--accent)">Certificates</Mark>
+          </MarkerText>
           <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
         </motion.div>
 

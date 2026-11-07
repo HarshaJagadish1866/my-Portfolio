@@ -85,35 +85,35 @@ export function GithubRepoStats({ githubUrl }: GithubRepoStatsProps) {
   const getLanguageColor = (lang: string | null) => {
     switch (lang?.toLowerCase()) {
       case "python":
-        return "bg-blue-500"
+        return "bg-accent"
       case "typescript":
-        return "bg-sky-500"
+        return "bg-accent-strong"
       case "javascript":
-        return "bg-yellow-400"
+        return "bg-amber-500"
       case "html":
-        return "bg-orange-500"
+        return "bg-accent"
       default:
-        return "bg-cyan-500"
+        return "bg-accent"
     }
   }
 
   return (
     <div className="flex flex-wrap items-center gap-2.5 pt-2 text-xs font-mono">
       {stats.language && (
-        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700/60">
+        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface text-foreground border border-border">
           <span className={`w-2 h-2 rounded-full ${getLanguageColor(stats.language)}`} />
           <span>{stats.language}</span>
         </span>
       )}
 
-      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700/60">
-        <Star className="w-3 h-3 text-amber-500 fill-amber-500/20" />
+      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface text-foreground border border-border">
+        <Star className="w-3 h-3 text-accent fill-accent/20" />
         <span>{stats.stars}</span>
       </span>
 
       {stats.formattedDate && (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700/60">
-          <Clock className="w-3 h-3" />
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface text-muted-foreground border border-border">
+          <Clock className="w-3 h-3 text-muted-foreground" />
           <span>{stats.formattedDate}</span>
         </span>
       )}

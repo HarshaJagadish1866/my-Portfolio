@@ -7,7 +7,7 @@ import { AnalyticsWrapper } from "@/components/analytics-wrapper"
 import { GlobalLiquidCursor } from "@/components/global-liquid-cursor"
 import { portfolioData } from "@/data/portfolio"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://harsha-jagadish.vercel.app"
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://harshajagadish18.vercel.app"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

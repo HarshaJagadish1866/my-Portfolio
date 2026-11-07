@@ -35,7 +35,7 @@ export default function Home() {
       {/* 6. Certifications Section (Vertical Timeline with Issuer Filter) */}
       <Certifications />
 
-      {/* 7. Contact & Guestbook Section (Supabase Powered) */}
+      {/* 7. Guestbook Section */}
       <ContactAndGuestbook />
 
       {/* 8. Footer */}
