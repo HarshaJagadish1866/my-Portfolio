@@ -5,7 +5,9 @@ import { ScrollProgress } from "@/components/scroll-progress"
 import { Navbar } from "@/components/navbar"
 import { AnalyticsWrapper } from "@/components/analytics-wrapper"
 import { GlobalLiquidCursor } from "@/components/global-liquid-cursor"
+import { GoogleAnalytics } from "@next/third-parties/google"
 import { portfolioData } from "@/data/portfolio"
+import { GA_MEASUREMENT_ID } from "@/lib/analytics"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://harsha-jagadish.vercel.app"
 
@@ -109,6 +111,29 @@ export default function RootLayout({
 })();`,
           }}
         />
+        {/* Google Consent Mode v2: default to denied until user consents, or restore granted if previously accepted */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+  try {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    var hasConsent = false;
+    try {
+      hasConsent = localStorage.getItem('portfolio_cookie_consent') === 'accepted';
+    } catch (e) {}
+    gtag('consent', 'default', {
+      'analytics_storage': hasConsent ? 'granted' : 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
+    });
+  } catch (e) {}
+})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -134,6 +159,7 @@ export default function RootLayout({
             {children}
           </div>
           <AnalyticsWrapper />
+          {GA_MEASUREMENT_ID ? <GoogleAnalytics gaId={GA_MEASUREMENT_ID} /> : null}
         </ThemeProvider>
       </body>
     </html>

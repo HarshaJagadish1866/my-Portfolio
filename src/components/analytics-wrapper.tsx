@@ -1,9 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { GoogleAnalytics } from "@next/third-parties/google"
 import { motion, AnimatePresence } from "motion/react"
-import { ShieldCheck, Cookie, X } from "lucide-react"
+import { ShieldCheck, Cookie } from "lucide-react"
 import { GA_MEASUREMENT_ID, CONSENT_STORAGE_KEY } from "@/lib/analytics"
 
 export function AnalyticsWrapper() {
@@ -15,26 +14,42 @@ export function AnalyticsWrapper() {
     const stored = localStorage.getItem(CONSENT_STORAGE_KEY)
     if (stored === "accepted" || stored === "declined") {
       setConsent(stored)
+      if (stored === "accepted" && typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+        ;(window as any).gtag("consent", "update", {
+          analytics_storage: "granted",
+        })
+      }
     }
   }, [])
 
   const handleAccept = () => {
     localStorage.setItem(CONSENT_STORAGE_KEY, "accepted")
     setConsent("accepted")
+
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      ;(window as any).gtag("consent", "update", {
+        analytics_storage: "granted",
+      })
+      ;(window as any).gtag("event", "page_view", {
+        page_title: document.title,
+        page_location: window.location.href,
+      })
+    }
   }
 
   const handleDecline = () => {
     localStorage.setItem(CONSENT_STORAGE_KEY, "declined")
     setConsent("declined")
+
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      ;(window as any).gtag("consent", "update", {
+        analytics_storage: "denied",
+      })
+    }
   }
 
   return (
     <>
-      {/* Load GA4 only if visitor explicitly accepted and ID is configured */}
-      {consent === "accepted" && GA_MEASUREMENT_ID ? (
-        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
-      ) : null}
-
       {/* Polite Cookie & Analytics Notice Banner */}
       <AnimatePresence>
         {isClient && consent === "pending" && (
