@@ -13,7 +13,7 @@ export default function Home() {
   const { owner } = portfolioData
 
   return (
-    <main className="flex-1 flex flex-col">
+    <main id="main-content" className="flex-1 flex flex-col">
       {/* 1. Hero Section */}
       <Hero />
 

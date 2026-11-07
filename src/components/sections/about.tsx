@@ -50,7 +50,7 @@ export function About() {
                 {!photoError ? (
                   <Image
                     src={owner.photoUrl}
-                    alt={owner.name}
+                    alt={`Portrait of ${owner.name}, Data Science and AI Engineer`}
                     fill
                     sizes="(max-width: 640px) 100vw, 384px"
                     className="object-cover transition-transform duration-500 hover:scale-105"
