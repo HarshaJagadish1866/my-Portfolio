@@ -93,7 +93,7 @@ export const portfolioData: PortfolioData = {
       vibe: "Modern Deep-Tech AI Developer",
     },
     photoUrl: "/photo.jpg",
-    resumeUrl: "/resume.pdf",
+    resumeUrl: "/Harsha_Jagadish_Resume_2026.pdf",
   },
 
   education: [

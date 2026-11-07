@@ -74,7 +74,8 @@ export function Navbar() {
           <ThemeToggle />
           <a
             href={portfolioData.owner.resumeUrl}
-            download="Harsha_Jagadish_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={trackResumeDownload}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
           >
@@ -121,7 +122,7 @@ export function Navbar() {
               <div className="pt-3 border-t border-border/60 flex flex-col gap-2 mt-2">
                 <a
                   href={portfolioData.owner.resumeUrl}
-                  download="Harsha_Jagadish_Resume.pdf"
+                  download="Harsha_Jagadish_Resume_2026.pdf"
                   onClick={() => {
                     trackResumeDownload()
                     setMobileMenuOpen(false)

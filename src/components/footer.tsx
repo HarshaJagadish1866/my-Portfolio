@@ -1,7 +1,7 @@
 "use client"
 
 import { portfolioData } from "@/data/portfolio"
-import { trackSocialLinkClick } from "@/lib/analytics"
+import { trackSocialLinkClick, trackResumeDownload } from "@/lib/analytics"
 
 export function Footer() {
   const { owner } = portfolioData
@@ -11,6 +11,15 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>© 2026 {owner.name}. All verified data wired via TypeScript.</div>
         <div className="flex items-center gap-6 font-mono">
+          <a
+            href={owner.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={trackResumeDownload}
+            className="hover:text-cyan-500 transition-colors"
+          >
+            Resume
+          </a>
           <a
             href={owner.github}
             target="_blank"

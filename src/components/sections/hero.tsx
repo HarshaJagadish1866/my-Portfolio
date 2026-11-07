@@ -131,7 +131,7 @@ export function Hero() {
                 {/* 2. Download Resume */}
                 <a
                   href={owner.resumeUrl}
-                  download="Harsha_Jagadish_Resume.pdf"
+                  download="Harsha_Jagadish_Resume_2026.pdf"
                   onClick={trackResumeDownload}
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border/80 bg-secondary/60 hover:bg-secondary hover:border-cyan-500/40 text-foreground text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] shadow-sm cursor-pointer"
                 >

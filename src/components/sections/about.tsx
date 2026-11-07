@@ -97,7 +97,7 @@ export function About() {
               <div className="pt-6 mt-6 border-t border-border/60 flex flex-wrap items-center justify-between gap-4">
                 <a
                   href={owner.resumeUrl}
-                  download="Harsha_Jagadish_Resume.pdf"
+                  download="Harsha_Jagadish_Resume_2026.pdf"
                   onClick={trackResumeDownload}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm shadow-md shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
                 >
