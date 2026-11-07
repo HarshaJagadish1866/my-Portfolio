@@ -38,7 +38,7 @@ export function trackEvent(
 // 1. Resume download event
 export function trackResumeDownload() {
   trackEvent("resume_download", {
-    file_name: "Harsha_Jagadish_Resume.pdf",
+    file_name: "Harsha_Jagadish_Resume_2026.pdf",
     source: "portfolio_button",
   })
 }
