@@ -76,6 +76,39 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="dark">
       <head>
+        {/* Clean up browser extension DOM attribute injection (e.g. Bitdefender bis_skin_checked) before React hydration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+  try {
+    var clean = function(node) {
+      if (!node || node.nodeType !== 1) return;
+      if (node.hasAttribute('bis_skin_checked')) node.removeAttribute('bis_skin_checked');
+      if (node.hasAttribute('bis_register')) node.removeAttribute('bis_register');
+    };
+    if (typeof MutationObserver !== 'undefined') {
+      new MutationObserver(function(mutations) {
+        for (var i = 0; i < mutations.length; i++) {
+          var m = mutations[i];
+          if (m.type === 'attributes') {
+            clean(m.target);
+          } else if (m.type === 'childList') {
+            for (var j = 0; j < m.addedNodes.length; j++) {
+              clean(m.addedNodes[j]);
+            }
+          }
+        }
+      }).observe(document.documentElement, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+        attributeFilter: ['bis_skin_checked', 'bis_register']
+      });
+    }
+  } catch (e) {}
+})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -97,7 +130,9 @@ export default function RootLayout({
           <GlobalLiquidCursor />
           <ScrollProgress />
           <Navbar />
-          <div className="flex-1 flex flex-col">{children}</div>
+          <div suppressHydrationWarning className="flex-1 flex flex-col">
+            {children}
+          </div>
           <AnalyticsWrapper />
         </ThemeProvider>
       </body>

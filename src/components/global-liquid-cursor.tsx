@@ -22,7 +22,6 @@ interface HoverState {
   aberration: number
   frost: number
   tint: number
-  hasDot: boolean
   magneticCenter?: { x: number; y: number }
 }
 
@@ -35,7 +34,6 @@ const DEFAULT_STATE: HoverState = {
   aberration: 4,
   frost: 0.3,
   tint: 0.12,
-  hasDot: true,
 }
 
 // Global displacement filter cache to prevent unnecessary re-computations
@@ -147,7 +145,6 @@ export function GlobalLiquidCursor() {
           aberration: 0,
           frost: 0,
           tint: 0.05,
-          hasDot: true,
         })
         return
       }
@@ -177,7 +174,6 @@ export function GlobalLiquidCursor() {
           aberration: 9,
           frost: 0.15,
           tint: 0.14,
-          hasDot: false,
           magneticCenter: { x: btnCenterX, y: btnCenterY },
         })
         return
@@ -207,7 +203,6 @@ export function GlobalLiquidCursor() {
           aberration: 6,
           frost: 0.08,
           tint: 0.08,
-          hasDot: false,
         })
         return
       }
@@ -241,7 +236,6 @@ export function GlobalLiquidCursor() {
             aberration: 9,
             frost: 0.15,
             tint: 0.14,
-            hasDot: false,
             magneticCenter: { x: btnCenterX, y: btnCenterY },
           })
           return
@@ -258,7 +252,6 @@ export function GlobalLiquidCursor() {
           aberration: 3,
           frost: 1.2, // Frosted blur
           tint: 0.18,
-          hasDot: true,
         })
         return
       }
@@ -414,13 +407,6 @@ export function GlobalLiquidCursor() {
                   "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.1) 45%, transparent 70%)",
               }}
             />
-
-            {/* Center Pointer Indicator Dot (Only in default and input modes) */}
-            {hoverState.hasDot && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee]" />
-              </div>
-            )}
           </div>
         </motion.div>
       )}
