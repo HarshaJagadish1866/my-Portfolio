@@ -118,7 +118,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="min-h-screen flex flex-col bg-background text-foreground antialiased selection:bg-cyan-500 selection:text-black"
+        className="min-h-screen flex flex-col bg-background text-foreground antialiased selection:bg-orange-500/30 selection:text-foreground"
       >
         <a href="#main-content" className="skip-to-content">
           Skip to main content

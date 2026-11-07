@@ -11,28 +11,24 @@ export function ContactAndGuestbook() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section id="contact" className="py-24 border-t border-border/40 scroll-mt-20 relative bg-secondary/15">
+    <section id="contact" className="py-20 sm:py-24 border-t border-border/60 scroll-mt-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
-        {/* Section Header */}
+        {/* Section Header: Number + Serif Title + Extending Line */}
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0.9, y: 15 }}
+          initial={shouldReduceMotion ? false : { opacity: 0.9, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mb-12"
+          transition={{ duration: 0.35 }}
+          className="flex items-baseline gap-3 mb-10 sm:mb-14"
         >
-          <div className="flex items-center gap-2 text-cyan-500 font-mono text-xs uppercase tracking-wider mb-2">
-            <span>07</span>
-            <span>/</span>
-            <span>Connect & Guestbook</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Get In Touch
+          <span className="text-xs sm:text-sm font-mono text-primary font-semibold tracking-wider">
+            07
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight">
+            Connect & Guestbook
           </h2>
-          <p className="text-muted-foreground text-sm mt-1 max-w-xl">
-            Drop a private message or sign the community guestbook.
-          </p>
+          <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
         </motion.div>
 
         {/* 2-Column Grid: Contact Form (Left) & Guestbook (Right) */}

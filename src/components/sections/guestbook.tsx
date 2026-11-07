@@ -119,7 +119,7 @@ export function Guestbook() {
               Leave a public note or testimonial for other visitors to see.
             </p>
           </div>
-          <div className="h-10 w-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+          <div className="h-10 w-10 rounded-2xl bg-primary/10 border border-primary/25 text-primary flex items-center justify-center shrink-0">
             <MessageSquare className="w-5 h-5" />
           </div>
         </div>
@@ -151,7 +151,7 @@ export function Guestbook() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your Name or Handle"
-              className="w-full px-4 py-2.5 rounded-xl bg-card border border-border/70 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all placeholder:text-muted-foreground/60"
+              className="w-full px-4 py-2.5 rounded-xl bg-card border border-border/70 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/60"
             />
           </div>
 
@@ -167,7 +167,7 @@ export function Guestbook() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Leave a short note or encouragement (max 500 chars)..."
-              className="w-full px-4 py-2.5 rounded-xl bg-card border border-border/70 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all placeholder:text-muted-foreground/60 resize-none"
+              className="w-full px-4 py-2.5 rounded-xl bg-card border border-border/70 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/60 resize-none"
             />
           </div>
 
@@ -193,19 +193,19 @@ export function Guestbook() {
 
           <div className="flex items-center justify-between gap-3 pt-1">
             <span className="text-[11px] font-mono text-muted-foreground flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-cyan-500" />
+              <Clock className="w-3.5 h-3.5 text-primary" />
               <span>Moderated via Supabase</span>
             </span>
 
             <button
               type="submit"
               disabled={submitting}
-              className="py-2.5 px-4 rounded-xl font-semibold text-xs bg-card border border-border/80 hover:border-cyan-500/50 hover:bg-secondary text-foreground transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              className="py-2.5 px-4 rounded-xl font-semibold text-xs bg-card border border-border/80 hover:border-primary/50 hover:bg-secondary text-foreground transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {submitting ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : (
-                <Send className="w-3.5 h-3.5 text-cyan-400" />
+                <Send className="w-3.5 h-3.5 text-primary" />
               )}
               <span>Sign Guestbook</span>
             </button>
@@ -258,7 +258,7 @@ export function Guestbook() {
               {entries.map((entry, idx) => (
                 <div
                   key={entry.id || idx}
-                  className="p-3.5 rounded-xl bg-card/60 border border-border/60 text-xs hover:border-cyan-500/30 transition-colors"
+                  className="p-3.5 rounded-xl bg-card/60 border border-border/60 text-xs hover:border-primary/40 transition-colors"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <span className="font-semibold text-foreground">{entry.name}</span>
@@ -275,7 +275,7 @@ export function Guestbook() {
           ) : (
             /* 4. Empty State */
             <div className="py-8 text-center rounded-2xl bg-card/30 border border-border/40 text-xs font-mono text-muted-foreground">
-              <Sparkles className="w-4 h-4 text-cyan-500 mx-auto mb-2 opacity-60" />
+              <Sparkles className="w-4 h-4 text-primary mx-auto mb-2 opacity-60" />
               <span>Be the first to sign!</span>
             </div>
           )}

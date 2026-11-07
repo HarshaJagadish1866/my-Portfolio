@@ -20,7 +20,7 @@ export function Footer() {
             rel="noopener noreferrer"
             onClick={trackResumeDownload}
             data-glass-type="button"
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/70 bg-card/50 text-foreground hover:border-cyan-500 hover:text-cyan-400 font-mono transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/70 bg-card text-foreground hover:border-primary hover:text-primary font-mono transition-colors"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Resume</span>

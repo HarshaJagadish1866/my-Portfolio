@@ -27,9 +27,9 @@ export function StatsStrip() {
       label: "Verified Credentials",
       caption: "Google, Kaggle & IITs",
       icon: Award,
-      color: "text-purple-400",
-      bg: "bg-purple-500/10",
-      border: "border-purple-500/20",
+      color: "text-orange-600 dark:text-orange-400",
+      bg: "bg-orange-500/10",
+      border: "border-orange-500/25",
     },
     {
       id: "projects",
@@ -38,9 +38,9 @@ export function StatsStrip() {
       label: "Multi-Agent Projects",
       caption: "Arbitr-AI & Voyager",
       icon: Terminal,
-      color: "text-cyan-400",
-      bg: "bg-cyan-500/10",
-      border: "border-cyan-500/20",
+      color: "text-amber-600 dark:text-amber-400",
+      bg: "bg-amber-500/10",
+      border: "border-amber-500/25",
     },
     {
       id: "skills",
@@ -49,9 +49,9 @@ export function StatsStrip() {
       label: "Technical Skills",
       caption: "AI, Agents, Data & Security",
       icon: Sparkles,
-      color: "text-blue-400",
-      bg: "bg-blue-500/10",
-      border: "border-blue-500/20",
+      color: "text-primary-dark dark:text-primary",
+      bg: "bg-primary/10",
+      border: "border-primary/25",
     },
     {
       id: "categories",
@@ -60,9 +60,9 @@ export function StatsStrip() {
       label: "Specialized Domains",
       caption: "AI, Code, Data, Security",
       icon: Layers,
-      color: "text-emerald-400",
+      color: "text-emerald-600 dark:text-emerald-400",
       bg: "bg-emerald-500/10",
-      border: "border-emerald-500/20",
+      border: "border-emerald-500/25",
     },
   ]
 
@@ -88,7 +88,7 @@ export function StatsStrip() {
   }, [isInView, stats])
 
   return (
-    <section ref={containerRef} className="py-12 border-y border-border/40 bg-secondary/30">
+    <section ref={containerRef} className="py-12 border-y border-border/70 bg-card/40">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {stats.map((stat, idx) => {
@@ -100,7 +100,7 @@ export function StatsStrip() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: idx * 0.08 }}
-                className="p-5 rounded-2xl bg-card/70 backdrop-blur-sm border border-border/70 hover:border-cyan-500/40 transition-all flex flex-col justify-between shadow-sm"
+                className="p-5 sm:p-6 rounded-2xl bg-card border border-border/80 hover:border-primary/40 transition-all flex flex-col justify-between shadow-2xs"
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">
@@ -113,7 +113,7 @@ export function StatsStrip() {
                 <div>
                   <div
                     id={`counter-${stat.id}`}
-                    className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight"
+                    className="text-3xl sm:text-4xl font-serif font-bold text-foreground tracking-tight"
                   >
                     {stat.target}{stat.suffix}
                   </div>

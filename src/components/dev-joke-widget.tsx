@@ -69,7 +69,7 @@ export function DevJokeWidget() {
           <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
           <span className="ml-2 font-mono text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
-            <Terminal className="w-3.5 h-3.5 text-cyan-500" />
+            <Terminal className="w-3.5 h-3.5 text-primary" />
             <span>dev_humor.sh</span>
           </span>
         </div>
@@ -94,7 +94,7 @@ export function DevJokeWidget() {
             onClick={fetchJoke}
             disabled={loading}
             title="Get another joke"
-            className="p-1.5 rounded-lg text-zinc-500 hover:text-cyan-500 hover:bg-zinc-200/60 dark:hover:bg-zinc-800 transition disabled:opacity-40"
+            className="p-1.5 rounded-lg text-zinc-500 hover:text-primary hover:bg-zinc-200/60 dark:hover:bg-zinc-800 transition disabled:opacity-40"
             aria-label="Refresh joke"
           >
             <RotateCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
@@ -122,16 +122,16 @@ export function DevJokeWidget() {
               {joke?.type === "twopart" ? (
                 <>
                   <p className="text-zinc-800 dark:text-zinc-200 text-sm">
-                    <span className="text-cyan-600 dark:text-cyan-400 font-semibold mr-1.5">$</span>
+                    <span className="text-primary-dark dark:text-primary font-semibold mr-1.5">$</span>
                     {joke.setup}
                   </p>
-                  <p className="text-cyan-600 dark:text-cyan-400 font-medium pl-4 border-l-2 border-cyan-500/40 text-sm">
+                  <p className="text-primary-dark dark:text-primary font-medium pl-4 border-l-2 border-primary/40 text-sm">
                     {joke.delivery}
                   </p>
                 </>
               ) : (
                 <p className="text-zinc-800 dark:text-zinc-200 text-sm">
-                  <span className="text-cyan-600 dark:text-cyan-400 font-semibold mr-1.5">$</span>
+                  <span className="text-primary-dark dark:text-primary font-semibold mr-1.5">$</span>
                   {joke?.joke}
                 </p>
               )}

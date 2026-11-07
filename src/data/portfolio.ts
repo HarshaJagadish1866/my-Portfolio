@@ -59,6 +59,7 @@ export interface CertificationItem {
   date: string
   skills: string[]
   credentialUrl?: string | null
+  credentialId?: string | null
   badgeText?: string
 }
 
@@ -128,9 +129,9 @@ export const portfolioData: PortfolioData = {
       },
     ],
     theme: {
-      default: "dark",
-      accentColor: "#06B6D4", // Electric Cyan
-      vibe: "Modern Deep-Tech AI Developer",
+      default: "light",
+      accentColor: "#F26B21", // Vivid Orange
+      vibe: "Warm Editorial Beige & Vivid Orange",
     },
     photoUrl: "/photo.jpg",
     resumeUrl: "/Harsha_Jagadish_Resume_2026.pdf",
@@ -197,6 +198,7 @@ export const portfolioData: PortfolioData = {
       date: "Aug 2026",
       skills: ["AI", "Machine Learning", "Prompt Engineering"],
       credentialUrl: null,
+      credentialId: null,
     },
     {
       id: "cert-google-ai-essentials",
@@ -205,6 +207,7 @@ export const portfolioData: PortfolioData = {
       date: "Aug 2026",
       skills: ["AI Literacy", "Model Training"],
       credentialUrl: null,
+      credentialId: null,
     },
     {
       id: "cert-kaggle-vibe-coding",
@@ -213,6 +216,7 @@ export const portfolioData: PortfolioData = {
       date: "Jul 2026",
       skills: ["AI-Assisted Development", "Agentic Workflows"],
       credentialUrl: null,
+      credentialId: null,
     },
     {
       id: "cert-iitg-summer-analytics",
@@ -221,6 +225,7 @@ export const portfolioData: PortfolioData = {
       date: "Apr 2026",
       skills: ["Data Analysis", "Machine Learning"],
       credentialUrl: null,
+      credentialId: null,
     },
     {
       id: "cert-gemini-student",
@@ -229,6 +234,7 @@ export const portfolioData: PortfolioData = {
       date: "Apr 2026",
       skills: ["AI Literacy", "Prompt Engineering"],
       credentialUrl: null,
+      credentialId: null,
     },
     {
       id: "cert-iitm-cybersecurity",
@@ -237,6 +243,7 @@ export const portfolioData: PortfolioData = {
       date: "Jan 2026",
       skills: ["Cybersecurity"],
       credentialUrl: null,
+      credentialId: null,
     },
     {
       id: "cert-deloitte-analytics",
@@ -245,6 +252,7 @@ export const portfolioData: PortfolioData = {
       date: "Jan 2026",
       skills: ["Data Analysis", "Data Modeling"],
       credentialUrl: null,
+      credentialId: null,
     },
     {
       id: "cert-kaggle-agents-google",
@@ -253,6 +261,7 @@ export const portfolioData: PortfolioData = {
       date: "Dec 2025",
       skills: ["Google Agent Development Kit (ADK)", "Multi-agent Systems"],
       credentialUrl: null,
+      credentialId: null,
     },
     {
       id: "cert-hackerrank-python",
@@ -261,6 +270,7 @@ export const portfolioData: PortfolioData = {
       date: "Dec 2025",
       skills: ["Python"],
       credentialUrl: null,
+      credentialId: null,
     },
   ],
 

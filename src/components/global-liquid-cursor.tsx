@@ -379,8 +379,8 @@ export function GlobalLiquidCursor() {
           <div
             className={cn(
               "relative w-full h-full transition-colors duration-200 pointer-events-none select-none",
-              "border border-white/40 dark:border-cyan-400/30",
-              "shadow-[0_8px_32px_0_rgba(6,182,212,0.18),inset_0_0_0_1px_rgba(255,255,255,0.25)]"
+              "border border-border/60 dark:border-orange-500/30",
+              "shadow-[0_8px_32px_0_rgba(242,107,33,0.18),inset_0_0_0_1px_rgba(255,255,255,0.25)]"
             )}
             style={{
               borderRadius: "inherit",

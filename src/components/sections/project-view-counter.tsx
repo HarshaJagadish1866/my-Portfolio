@@ -50,8 +50,8 @@ export function ProjectViewCounter({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-card border border-border/60 text-[11px] font-mono text-muted-foreground">
-      <Eye className="w-3 h-3 text-cyan-400" />
+    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary border border-border/70 text-[11px] font-mono text-muted-foreground">
+      <Eye className="w-3 h-3 text-primary" />
       <span>{views} {views === 1 ? "view" : "views"}</span>
     </div>
   )
