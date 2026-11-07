@@ -76,24 +76,46 @@ export async function submitGuestbookEntry(name: string, message: string) {
   return { success: true }
 }
 
-// 3. Fetch Approved Guestbook Entries
-export async function getApprovedGuestbookEntries(): Promise<GuestbookEntry[]> {
+// 3. Fetch Approved Guestbook Entries with timeout and error tracking
+export async function getApprovedGuestbookEntries(): Promise<{
+  data: GuestbookEntry[]
+  error: string | null
+}> {
   if (!isSupabaseConfigured || !supabase) {
-    return []
+    return {
+      data: [],
+      error: "Supabase is not configured yet. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your environment variables.",
+    }
   }
 
-  const { data, error } = await supabase
-    .from("guestbook")
-    .select("id, name, message, created_at")
-    .eq("approved", true)
-    .order("created_at", { ascending: false })
-    .limit(25)
+  try {
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Database connection timed out. Please retry.")), 7000)
+    )
 
-  if (error || !data) {
-    return []
+    const fetchPromise = supabase
+      .from("guestbook")
+      .select("id, name, message, created_at")
+      .eq("approved", true)
+      .order("created_at", { ascending: false })
+      .limit(25)
+
+    const result = (await Promise.race([fetchPromise, timeoutPromise])) as {
+      data: GuestbookEntry[] | null
+      error: { message: string } | null
+    }
+
+    if (result.error) {
+      return { data: [], error: result.error.message }
+    }
+
+    return { data: (result.data as GuestbookEntry[]) || [], error: null }
+  } catch (err: any) {
+    return {
+      data: [],
+      error: err?.message || "Failed to load guestbook entries.",
+    }
   }
-
-  return data as GuestbookEntry[]
 }
 
 // 4. Increment and get project view count via safe RPC function

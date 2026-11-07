@@ -1,51 +1,34 @@
 "use client"
 
+import * as React from "react"
 import { portfolioData } from "@/data/portfolio"
-import { trackSocialLinkClick, trackResumeDownload } from "@/lib/analytics"
+import { trackResumeDownload } from "@/lib/analytics"
+import { SocialLinks } from "@/components/social-links"
+import { FileText } from "lucide-react"
 
 export function Footer() {
   const { owner } = portfolioData
 
   return (
-    <footer className="py-10 border-t border-border/60 bg-background text-xs text-muted-foreground">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div>© 2026 {owner.name}. All verified data wired via TypeScript.</div>
-        <div className="flex items-center gap-6 font-mono">
+    <footer className="py-12 border-t border-border/60 bg-background text-xs text-muted-foreground">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+          <span>© 2026 {owner.name}. All verified data wired via TypeScript.</span>
           <a
             href={owner.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={trackResumeDownload}
-            className="hover:text-cyan-500 transition-colors"
+            data-glass-type="button"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/70 bg-card/50 text-foreground hover:border-cyan-500 hover:text-cyan-400 font-mono transition-colors"
           >
-            Resume
-          </a>
-          <a
-            href={owner.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackSocialLinkClick("GitHub")}
-            className="hover:text-cyan-500 transition-colors"
-          >
-            GitHub
-          </a>
-          <a
-            href={owner.linkedIn}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackSocialLinkClick("LinkedIn")}
-            className="hover:text-cyan-500 transition-colors"
-          >
-            LinkedIn
-          </a>
-          <a
-            href={`mailto:${owner.email}`}
-            onClick={() => trackSocialLinkClick("Email")}
-            className="hover:text-cyan-500 transition-colors"
-          >
-            Email
+            <FileText className="w-3.5 h-3.5" />
+            <span>Resume</span>
           </a>
         </div>
+
+        {/* Social Links Pill Group */}
+        <SocialLinks />
       </div>
     </footer>
   )

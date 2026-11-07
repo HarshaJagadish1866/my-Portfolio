@@ -3,6 +3,13 @@ export interface QuickFact {
   value: string
 }
 
+export interface SocialLink {
+  platform: "email" | "linkedin" | "x" | "github" | "instagram"
+  label: string
+  href: string
+  icon: string
+}
+
 export interface PersonalInfo {
   name: string
   tagline: string
@@ -12,6 +19,7 @@ export interface PersonalInfo {
   githubUsername: string
   aboutMe: string
   quickFacts: QuickFact[]
+  socialLinks: SocialLink[]
   theme: {
     default: "dark" | "light"
     accentColor: string
@@ -86,6 +94,38 @@ export const portfolioData: PortfolioData = {
       { label: "Core Focus", value: "Multi-Agent AI & Google ADK" },
       { label: "Milestone", value: "May 2026 Foundation Certificate" },
       { label: "Collaboration", value: "Open for AI / Data Projects" },
+    ],
+    socialLinks: [
+      {
+        platform: "email",
+        label: "Email",
+        href: "mailto:harshajagadish320067@gmail.com",
+        icon: "email",
+      },
+      {
+        platform: "linkedin",
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/harsha-jagadish3200671866",
+        icon: "linkedin",
+      },
+      {
+        platform: "x",
+        label: "X",
+        href: "https://x.com/im_the_kalki",
+        icon: "x",
+      },
+      {
+        platform: "github",
+        label: "GitHub",
+        href: "https://github.com/HarshaJagadish1866",
+        icon: "github",
+      },
+      {
+        platform: "instagram",
+        label: "Instagram",
+        href: "https://www.instagram.com/harsha_jagadish_18/",
+        icon: "instagram",
+      },
     ],
     theme: {
       default: "dark",

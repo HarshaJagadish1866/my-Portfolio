@@ -58,7 +58,9 @@ export default function RootLayout({
     url: siteUrl,
     image: `${siteUrl}/photo.jpg`,
     description: portfolioData.owner.aboutMe,
-    sameAs: [portfolioData.owner.linkedIn, portfolioData.owner.github],
+    sameAs: portfolioData.owner.socialLinks
+      .map((s) => s.href)
+      .filter((h) => !h.startsWith("mailto:")),
     alumniOf: {
       "@type": "CollegeOrUniversity",
       name: "Indian Institute of Technology, Madras",

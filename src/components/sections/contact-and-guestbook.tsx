@@ -5,12 +5,9 @@ import { motion, useReducedMotion } from "motion/react"
 import { ContactForm } from "@/components/sections/contact-form"
 import { Guestbook } from "@/components/sections/guestbook"
 import { DevJokeWidget } from "@/components/dev-joke-widget"
-import { Mail, ArrowUpRight } from "lucide-react"
-import { portfolioData } from "@/data/portfolio"
-import { trackSocialLinkClick } from "@/lib/analytics"
+import { SocialLinks } from "@/components/social-links"
 
 export function ContactAndGuestbook() {
-  const { owner } = portfolioData
   const shouldReduceMotion = useReducedMotion()
 
   return (
@@ -34,7 +31,7 @@ export function ContactAndGuestbook() {
             Get In Touch
           </h2>
           <p className="text-muted-foreground text-sm mt-1 max-w-xl">
-            Drop a private message directly to my inbox or sign the community guestbook.
+            Drop a private message or sign the community guestbook.
           </p>
         </motion.div>
 
@@ -50,39 +47,11 @@ export function ContactAndGuestbook() {
         </div>
 
         {/* Quick Social Connect Bar */}
-        <div className="mt-12 pt-8 border-t border-border/60 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <span>Direct Email:</span>
-            <a
-              href={`mailto:${owner.email}`}
-              onClick={() => trackSocialLinkClick("Email")}
-              className="text-cyan-400 hover:underline font-semibold"
-            >
-              {owner.email}
-            </a>
+        <div className="mt-12 pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-xs font-mono text-muted-foreground">
+            Connect across my verified platforms:
           </div>
-
-          <div className="flex items-center gap-4">
-            <a
-              href={owner.linkedIn}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackSocialLinkClick("LinkedIn")}
-              className="hover:text-cyan-400 transition-colors"
-            >
-              LinkedIn
-            </a>
-            <span>•</span>
-            <a
-              href={owner.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackSocialLinkClick("GitHub")}
-              className="hover:text-cyan-400 transition-colors"
-            >
-              GitHub
-            </a>
-          </div>
+          <SocialLinks />
         </div>
 
       </div>

@@ -21,9 +21,8 @@ export function ContactForm() {
 
     // 1. Spam trap check
     if (honeypot.trim() !== "") {
-      // Silently discard bot submission
       setStatus("success")
-      setFeedback("Thank you! Your message has been received.")
+      setFeedback("Thanks! Your message was received.")
       setName("")
       setEmail("")
       setMessage("")
@@ -31,16 +30,32 @@ export function ContactForm() {
     }
 
     // 2. Client-side input validation
-    if (!name.trim() || !email.trim() || !message.trim()) {
+    const cleanName = name.trim()
+    const cleanEmail = email.trim()
+    const cleanMessage = message.trim()
+
+    if (!cleanName || !cleanEmail || !cleanMessage) {
       setStatus("error")
       setFeedback("Please fill out all required fields.")
       return
     }
 
+    if (cleanName.length < 2 || cleanName.length > 100) {
+      setStatus("error")
+      setFeedback("Name must be between 2 and 100 characters.")
+      return
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email.trim())) {
+    if (!emailRegex.test(cleanEmail)) {
       setStatus("error")
       setFeedback("Please enter a valid email address.")
+      return
+    }
+
+    if (cleanMessage.length < 5 || cleanMessage.length > 1000) {
+      setStatus("error")
+      setFeedback("Message must be between 5 and 1000 characters.")
       return
     }
 
@@ -59,19 +74,23 @@ export function ContactForm() {
     setFeedback("")
 
     try {
-      const result = await submitContactMessage({ name, email, message })
+      const result = await submitContactMessage({
+        name: cleanName,
+        email: cleanEmail,
+        message: cleanMessage,
+      })
 
       if (result.success) {
         sessionStorage.setItem("last_contact_sent", now.toString())
         setStatus("success")
-        setFeedback("Thank you! Your message was sent securely to Harsha.")
+        setFeedback("Thanks! Your message was received.")
         setName("")
         setEmail("")
         setMessage("")
         trackContactSubmit()
       } else {
         setStatus("error")
-        setFeedback(result.error || "Failed to send message. Please try again.")
+        setFeedback(result.error || "Failed to submit message. Please try again.")
       }
     } catch {
       setStatus("error")
@@ -84,14 +103,14 @@ export function ContactForm() {
   return (
     <div className="p-7 sm:p-9 rounded-3xl bg-secondary/30 border border-border/70 backdrop-blur-md shadow-sm">
       <div className="mb-6">
-        <h3 className="text-xl font-bold text-foreground">Send a Direct Message</h3>
+        <h3 className="text-xl font-bold text-foreground">Send a Message</h3>
         <p className="text-xs text-muted-foreground mt-1">
-          Delivered straight to my private Supabase dashboard.
+          Saved directly to my database for review.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Hidden Honeypot Field (Invisible to human users, fills by spam bots) */}
+        {/* Hidden Honeypot Field */}
         <div style={{ display: "none" }} aria-hidden="true">
           <label htmlFor="website_url_check">Leave this field blank</label>
           <input
@@ -112,6 +131,7 @@ export function ContactForm() {
             id="contact-name"
             type="text"
             required
+            maxLength={100}
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Alex Chen"
@@ -127,6 +147,7 @@ export function ContactForm() {
             id="contact-email"
             type="email"
             required
+            maxLength={100}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="alex@example.com"
@@ -142,6 +163,7 @@ export function ContactForm() {
             id="contact-message"
             required
             rows={4}
+            maxLength={1000}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Hi Harsha, I saw your work on Arbitr-AI and would like to discuss..."
@@ -177,7 +199,7 @@ export function ContactForm() {
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Sending Encrypted Message...</span>
+              <span>Saving Message...</span>
             </>
           ) : (
             <>
