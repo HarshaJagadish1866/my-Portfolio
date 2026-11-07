@@ -1,5 +1,4 @@
 import { portfolioData } from "@/data/portfolio"
-import { IntroSequence } from "@/components/IntroSequence"
 import { Hero } from "@/components/sections/hero"
 import { StatsStrip } from "@/components/sections/stats-strip"
 import { About } from "@/components/sections/about"
@@ -14,35 +13,33 @@ export default function Home() {
   const { owner } = portfolioData
 
   return (
-    <IntroSequence>
-      <main id="main-content" className="flex-1 flex flex-col">
-        {/* 1. Hero Section */}
-        <Hero />
+    <main id="main-content" className="flex-1 flex flex-col">
+      {/* 1. Hero Section */}
+      <Hero />
 
-        {/* Real-time Computed Stats Strip with Anime.js Counter */}
-        <StatsStrip />
+      {/* Real-time Computed Stats Strip with Anime.js Counter */}
+      <StatsStrip />
 
-        {/* 2. About Section */}
-        <About />
+      {/* 2. About Section */}
+      <About />
 
-        {/* 3. Education Section */}
-        <Education />
+      {/* 3. Education Section */}
+      <Education />
 
-        {/* 4. Skills Section (Grouped & Filterable) */}
-        <Skills />
+      {/* 4. Skills Section (Grouped & Filterable) */}
+      <Skills />
 
-        {/* 5. Projects Section (Extensible Cards with View Counters) */}
-        <Projects />
+      {/* 5. Projects Section (Extensible Cards with View Counters) */}
+      <Projects />
 
-        {/* 6. Certifications Section (Vertical Timeline with Issuer Filter) */}
-        <Certifications />
+      {/* 6. Certifications Section (Vertical Timeline with Issuer Filter) */}
+      <Certifications />
 
-        {/* 7. Contact & Guestbook Section (Supabase Powered) */}
-        <ContactAndGuestbook />
+      {/* 7. Contact & Guestbook Section (Supabase Powered) */}
+      <ContactAndGuestbook />
 
-        {/* 8. Footer */}
-        <Footer />
-      </main>
-    </IntroSequence>
+      {/* 8. Footer */}
+      <Footer />
+    </main>
   )
 }
