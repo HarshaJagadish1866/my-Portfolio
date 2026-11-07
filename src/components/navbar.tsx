@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "motion/react"
-import { Menu, X, FileDown } from "lucide-react"
+import { Menu, X, ArrowDown } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { portfolioData } from "@/data/portfolio"
 import { trackResumeDownload } from "@/lib/analytics"
@@ -78,10 +78,10 @@ export function Navbar() {
             rel="noopener noreferrer"
             onClick={trackResumeDownload}
             data-glass-type="button"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white shadow-md shadow-orange-500/20 hover:shadow-orange-500/35 hover:-translate-y-0.5 transition-all cursor-pointer"
+            className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
           >
-            <FileDown className="w-3.5 h-3.5" />
-            Resume
+            <ArrowDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-y-1" />
+            <span>Resume</span>
           </a>
         </div>
 
@@ -123,15 +123,16 @@ export function Navbar() {
               <div className="pt-3 border-t border-border/60 flex flex-col gap-2 mt-2">
                 <a
                   href={portfolioData.owner.resumeUrl}
-                  download="Harsha_Jagadish_Resume_2026.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => {
                     trackResumeDownload()
                     setMobileMenuOpen(false)
                   }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-orange-500 to-amber-600 text-white shadow-md shadow-orange-500/25 cursor-pointer"
+                  className="group w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 cursor-pointer transition-all"
                 >
-                  <FileDown className="w-4 h-4" />
-                  Download Resume
+                  <ArrowDown className="w-4 h-4 transition-transform duration-200 group-hover:translate-y-1" />
+                  <span>Resume</span>
                 </a>
               </div>
             </div>

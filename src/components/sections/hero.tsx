@@ -4,11 +4,10 @@ import * as React from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { animate, stagger } from "animejs"
-import { ArrowRight, FileDown, Mail, Bot, Database, Sparkles, BrainCircuit } from "lucide-react"
+import { ArrowRight, Mail, Bot, Database, Sparkles, BrainCircuit } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
 import { BeamsBackground } from "@/components/kokonutui/beams-background"
 import { ShimmerButton } from "@/components/kokonutui/shimmer-button"
-import { trackResumeDownload } from "@/lib/analytics"
 
 export function Hero() {
   const { owner } = portfolioData
@@ -118,7 +117,7 @@ export function Hero() {
                 LLM applications, and scalable data workflows for real-world impact.
               </p>
 
-              {/* 3 Call to Action Buttons */}
+              {/* Call to Action Buttons */}
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 w-full sm:w-auto">
                 {/* 1. View Projects (Shimmer Button) */}
                 <Link href="#projects">
@@ -128,22 +127,10 @@ export function Hero() {
                   </ShimmerButton>
                 </Link>
 
-                {/* 2. Download Resume */}
-                <a
-                  href={owner.resumeUrl}
-                  download="Harsha_Jagadish_Resume_2026.pdf"
-                  onClick={trackResumeDownload}
-                  data-glass-type="button"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border/80 bg-card hover:bg-secondary hover:border-primary/50 text-foreground text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xs cursor-pointer"
-                >
-                  <FileDown className="w-4 h-4 text-primary" />
-                  <span>Download Resume</span>
-                </a>
-
-                {/* 3. Contact Button */}
+                {/* 2. Contact Button */}
                 <Link
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-muted-foreground hover:text-foreground text-sm font-semibold transition-colors hover:bg-secondary"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border/80 bg-card hover:bg-secondary hover:border-primary/50 text-foreground text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xs cursor-pointer"
                 >
                   <Mail className="w-4 h-4 text-primary" />
                   <span>Contact</span>

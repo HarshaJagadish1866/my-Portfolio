@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from "motion/react"
 import { ContactForm } from "@/components/sections/contact-form"
 import { Guestbook } from "@/components/sections/guestbook"
 import { DevJokeWidget } from "@/components/dev-joke-widget"
-import { SocialLinks } from "@/components/social-links"
 
 export function ContactAndGuestbook() {
   const shouldReduceMotion = useReducedMotion()
@@ -40,14 +39,6 @@ export function ContactAndGuestbook() {
         {/* Fun Widget: Dev Joke of the Day (Public API) */}
         <div className="mt-12">
           <DevJokeWidget />
-        </div>
-
-        {/* Quick Social Connect Bar */}
-        <div className="mt-12 pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs font-mono text-muted-foreground">
-            Connect across my verified platforms:
-          </div>
-          <SocialLinks />
         </div>
 
       </div>

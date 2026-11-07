@@ -3,9 +3,8 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
-import { FileDown, CheckCircle2 } from "lucide-react"
+import { CheckCircle2 } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
-import { trackResumeDownload } from "@/lib/analytics"
 
 export function About() {
   const { owner } = portfolioData
@@ -93,21 +92,6 @@ export function About() {
               <p className="text-foreground leading-relaxed text-base sm:text-lg">
                 {owner.aboutMe}
               </p>
-              <div className="pt-6 mt-6 border-t border-border/70 flex flex-wrap items-center justify-between gap-4">
-                <a
-                  href={owner.resumeUrl}
-                  download="Harsha_Jagadish_Resume_2026.pdf"
-                  onClick={trackResumeDownload}
-                  data-glass-type="button"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold text-sm shadow-md shadow-orange-500/20 hover:shadow-orange-500/35 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-                >
-                  <FileDown className="w-4 h-4" />
-                  <span>Download Full Resume</span>
-                </a>
-                <span className="text-xs font-mono text-muted-foreground">
-                  Verified PDF • Dec 2025 – Aug 2026 Skills
-                </span>
-              </div>
             </div>
 
             {/* Quick Facts Grid */}
