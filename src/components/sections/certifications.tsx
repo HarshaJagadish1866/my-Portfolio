@@ -6,7 +6,7 @@ import { BadgeCheck, ChevronDown, ChevronUp } from "lucide-react"
 import { portfolioData, type CertificationItem } from "@/data/portfolio"
 import { IssuerLogoTile } from "@/components/icons/issuer-logos"
 import { trackCertificateLinkClick } from "@/lib/analytics"
-import { Typewriter } from "@/components/ui/type-writer"
+import { SectionHeader } from "@/components/ui/section-header"
 
 function CertRow({ cert, index }: { cert: CertificationItem; index: number }) {
   const shouldReduceMotion = useReducedMotion()
@@ -34,7 +34,7 @@ function CertRow({ cert, index }: { cert: CertificationItem; index: number }) {
         <div className="min-w-0 flex-1">
           {/* Title + Attendance Badge */}
           <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-serif text-base sm:text-lg font-semibold text-foreground group-hover:text-accent transition-colors leading-snug">
+            <h3 className="font-sans text-base sm:text-lg font-semibold text-foreground group-hover:text-accent transition-colors leading-snug">
               {cert.title}
             </h3>
             {cert.isAttendanceLetter && (
@@ -135,30 +135,9 @@ export function Certifications() {
   return (
     <section id="certifications" className="py-20 sm:py-24 scroll-mt-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
+
         {/* Section Header: Number + Serif Title + Extending Divider Line */}
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0.8, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.35 }}
-          className="flex items-baseline gap-3 mb-8 sm:mb-12"
-        >
-          <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
-            06
-          </span>
-          <Typewriter
-            as="h2"
-            sequences={[{ text: "Earned Certificates", deleteAfter: false }]}
-            autoLoop={false}
-            startDelay={150}
-            typingSpeed={40}
-            naturalVariance={true}
-            className="w-auto inline-flex justify-start"
-            textClassName="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight"
-          />
-          <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
-        </motion.div>
+        <SectionHeader number="06" title="Earned Certificates" />
 
         {/* Clean list of full-width rows, newest first, separated by thin divider lines */}
         <div className="divide-y divide-border/70 border-y border-border/70">

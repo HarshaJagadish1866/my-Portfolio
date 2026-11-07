@@ -4,7 +4,7 @@ import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { GraduationCap, Calendar, Award, CheckCircle } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
-import { Typewriter } from "@/components/ui/type-writer"
+import { SectionHeader } from "@/components/ui/section-header"
 
 export function Education() {
   const { education } = portfolioData
@@ -13,30 +13,9 @@ export function Education() {
   return (
     <section id="education" className="py-20 sm:py-24 border-t border-border/60 scroll-mt-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
+
         {/* Section Header */}
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0.9, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.35 }}
-          className="flex items-baseline gap-3 mb-10 sm:mb-14"
-        >
-          <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
-            03
-          </span>
-          <Typewriter
-            as="h2"
-            sequences={[{ text: "Education & Journey", deleteAfter: false }]}
-            autoLoop={false}
-            startDelay={150}
-            typingSpeed={40}
-            naturalVariance={true}
-            className="w-auto inline-flex justify-start"
-            textClassName="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight"
-          />
-          <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
-        </motion.div>
+        <SectionHeader number="03" title="Education & Journey" />
 
         {/* Education Cards Grid */}
         <div className="space-y-6">
@@ -50,7 +29,7 @@ export function Education() {
               className="p-7 sm:p-9 rounded-3xl bg-card border border-border/80 shadow-xs group"
             >
               <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-                
+
                 {/* Left: Icon & Core Details */}
                 <div className="flex items-start gap-4 sm:gap-5">
                   <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-primary/10 border border-primary/25 text-primary flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
@@ -60,7 +39,7 @@ export function Education() {
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary text-xs font-mono mb-2 border border-primary/20 font-medium">
                       <span>Premier Indian Institute</span>
                     </div>
-                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-foreground tracking-tight">
+                    <h3 className="text-2xl sm:text-3xl font-sans font-bold text-foreground tracking-tight">
                       {item.institution}
                     </h3>
                     <p className="text-base sm:text-lg text-primary-dark dark:text-primary font-medium mt-1">

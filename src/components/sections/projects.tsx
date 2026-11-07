@@ -8,7 +8,7 @@ import { portfolioData } from "@/data/portfolio"
 import { ProjectViewCounter } from "@/components/sections/project-view-counter"
 import { GithubRepoStats } from "@/components/github-repo-stats"
 import { trackProjectLinkClick } from "@/lib/analytics"
-import { Typewriter } from "@/components/ui/type-writer"
+import { SectionHeader } from "@/components/ui/section-header"
 
 export function Projects() {
   const { projects } = portfolioData
@@ -17,30 +17,9 @@ export function Projects() {
   return (
     <section id="projects" className="py-20 sm:py-24 border-t border-border/60 scroll-mt-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
+
         {/* Section Header */}
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0.9, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.35 }}
-          className="flex items-baseline gap-3 mb-10 sm:mb-14"
-        >
-          <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
-            05
-          </span>
-          <Typewriter
-            as="h2"
-            sequences={[{ text: "Featured Projects", deleteAfter: false }]}
-            autoLoop={false}
-            startDelay={150}
-            typingSpeed={40}
-            naturalVariance={true}
-            className="w-auto inline-flex justify-start"
-            textClassName="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight"
-          />
-          <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
-        </motion.div>
+        <SectionHeader number="05" title="Featured Projects" />
 
         {/* Projects Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -70,7 +49,7 @@ export function Projects() {
                     ) : (
                       <div className="w-full h-full rounded-2xl bg-card/90 border border-border/70 p-4 flex flex-col justify-between relative overflow-hidden shadow-inner">
                         <div className="absolute inset-0 bg-[radial-gradient(#f26b2110_1px,transparent_1px)] [background-size:16px_16px]" />
-                        
+
                         {/* Mock Window Header */}
                         <div className="relative z-10 flex items-center justify-between border-b border-border/60 pb-2.5">
                           <div className="flex items-center gap-2">
@@ -95,7 +74,7 @@ export function Projects() {
                               <Bot className="w-6 h-6" />
                             )}
                           </div>
-                          <div className="text-foreground font-serif font-bold text-base tracking-tight">
+                          <div className="text-foreground font-sans font-bold text-base tracking-tight">
                             {project.title}
                           </div>
                           <div className="text-[11px] font-mono text-muted-foreground mt-0.5">
@@ -119,16 +98,14 @@ export function Projects() {
                     {/* Header: Title & Status */}
                     <div className="flex items-center justify-between gap-3 mb-3">
                       <span
-                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium border ${
-                          isCompleted
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium border ${isCompleted
                             ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
                             : "bg-primary/10 text-primary-dark dark:text-primary border-primary/30"
-                        }`}
+                          }`}
                       >
                         <span
-                          className={`h-1.5 w-1.5 rounded-full ${
-                            isCompleted ? "bg-emerald-500" : "bg-primary animate-pulse"
-                          }`}
+                          className={`h-1.5 w-1.5 rounded-full ${isCompleted ? "bg-emerald-500" : "bg-primary animate-pulse"
+                            }`}
                         />
                         {project.status}
                       </span>
@@ -138,7 +115,7 @@ export function Projects() {
                       </div>
                     </div>
 
-                    <h3 className="text-2xl font-serif font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                    <h3 className="text-2xl font-sans font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                       {project.title}
                     </h3>
 

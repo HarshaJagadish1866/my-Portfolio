@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { animate, stagger } from "animejs"
-import { ArrowRight, MessageSquare, Bot, Database, Sparkles, BrainCircuit, Play, Pause } from "lucide-react"
+import { ArrowRight, MessageSquare, Bot, Database, Sparkles, BrainCircuit } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
 import { BeamsBackground } from "@/components/kokonutui/beams-background"
 import { ShimmerButton } from "@/components/kokonutui/shimmer-button"
@@ -16,7 +16,6 @@ export function Hero() {
   const shouldReduceMotion = useReducedMotion()
   const nameRef = React.useRef<HTMLHeadingElement>(null)
   const svgLineRef = React.useRef<SVGPathElement>(null)
-  const [isTypingPaused, setIsTypingPaused] = React.useState(false)
 
   React.useEffect(() => {
     if (shouldReduceMotion) return
@@ -52,7 +51,7 @@ export function Hero() {
       <BeamsBackground>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-12">
-            
+
             {/* Left Column: Text & Call to Actions */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0.8, y: 15 }}
@@ -70,11 +69,11 @@ export function Hero() {
                 <span className="sm:hidden">IIT Madras BS • Data Science</span>
               </div>
 
-              {/* Static Name in Editorial Serif */}
+              {/* Static Name in Clean Inter Sans */}
               <h1
                 ref={nameRef}
                 data-glass-type="text"
-                className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-foreground leading-[1.08] mb-2"
+                className="text-4xl sm:text-6xl lg:text-7xl font-sans font-extrabold tracking-tight text-foreground leading-[1.08] mb-2"
               >
                 {owner.name}
               </h1>
@@ -100,7 +99,7 @@ export function Hero() {
               </div>
 
               {/* Large Rotating Typewriter Subtitle */}
-              <div className="flex items-center gap-2 mb-5 w-full justify-center md:justify-start">
+              <div className="flex items-center mb-5 w-full justify-center md:justify-start">
                 <Typewriter
                   as="h2"
                   sequences={[
@@ -113,19 +112,9 @@ export function Hero() {
                   naturalVariance={true}
                   autoLoop={true}
                   typos={false}
-                  paused={isTypingPaused}
                   className="w-auto inline-flex justify-center md:justify-start"
                   textClassName="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-accent tracking-tight"
                 />
-                <button
-                  type="button"
-                  onClick={() => setIsTypingPaused((prev) => !prev)}
-                  aria-label={isTypingPaused ? "Resume typing animation" : "Pause typing animation"}
-                  className="p-1.5 rounded-lg border border-border/80 text-muted-foreground hover:text-accent hover:border-accent/40 bg-card/60 transition-colors shrink-0 cursor-pointer"
-                  title={isTypingPaused ? "Play" : "Pause"}
-                >
-                  {isTypingPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
-                </button>
               </div>
 
               {/* Tagline / Subtitle */}
@@ -162,17 +151,17 @@ export function Hero() {
               {/* Metrics Strip */}
               <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-6 mt-6 border-t border-border w-full max-w-lg">
                 <div className="text-center md:text-left">
-                  <div className="text-lg sm:text-2xl font-serif font-bold text-foreground">Multi-Agent</div>
+                  <div className="text-lg sm:text-2xl font-sans font-bold text-foreground">Multi-Agent</div>
                   <div className="text-[11px] text-muted-foreground font-mono mt-0.5">Google ADK</div>
                 </div>
                 <div className="text-center md:text-left">
-                  <div className="text-lg sm:text-2xl font-serif font-bold text-foreground">
+                  <div className="text-lg sm:text-2xl font-sans font-bold text-foreground">
                     {portfolioData.certifications.length}
                   </div>
                   <div className="text-[11px] text-muted-foreground font-mono mt-0.5">Certifications</div>
                 </div>
                 <div className="text-center md:text-left">
-                  <div className="text-lg sm:text-2xl font-serif font-bold text-foreground">IIT Madras</div>
+                  <div className="text-lg sm:text-2xl font-sans font-bold text-foreground">IIT Madras</div>
                   <div className="text-[11px] text-muted-foreground font-mono mt-0.5">BS Data Science</div>
                 </div>
               </div>
@@ -191,7 +180,7 @@ export function Hero() {
               {/* Card Container */}
               <div className="relative rounded-3xl p-2.5 bg-gradient-to-b from-orange-500/30 via-border/80 to-border/40 backdrop-blur-md border border-orange-500/35 shadow-xl">
                 <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-2xl overflow-hidden bg-card border border-border/80 flex flex-col items-center justify-between p-6">
-                  
+
                   {/* Subtle Grid Inside Card */}
                   <div className="absolute inset-0 bg-[radial-gradient(#f26b2115_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
 
@@ -211,7 +200,7 @@ export function Hero() {
                         <BrainCircuit className="w-12 h-12 sm:w-14 sm:h-14 text-primary" />
                       </div>
                     </div>
-                    <div className="text-foreground font-serif font-bold text-lg sm:text-xl tracking-tight">
+                    <div className="text-foreground font-sans font-bold text-lg sm:text-xl tracking-tight">
                       {owner.name}
                     </div>
                     <p className="text-primary-dark dark:text-primary text-xs font-mono mt-0.5">

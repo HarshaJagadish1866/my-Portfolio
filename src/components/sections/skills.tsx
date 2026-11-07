@@ -3,7 +3,7 @@
 import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { portfolioData } from "@/data/portfolio"
-import { Typewriter } from "@/components/ui/type-writer"
+import { SectionHeader } from "@/components/ui/section-header"
 
 // Distinctive emoji/glyph mapping matching the reference screenshot style
 const SKILL_ICONS: Record<string, string> = {
@@ -42,30 +42,9 @@ export function Skills() {
   return (
     <section id="skills" className="py-20 sm:py-24 scroll-mt-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
+
         {/* Section Header: Number + Serif Title + Extending Divider Line */}
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0.8, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.35 }}
-          className="flex items-baseline gap-3 mb-10 sm:mb-14"
-        >
-          <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
-            04
-          </span>
-          <Typewriter
-            as="h2"
-            sequences={[{ text: "Core Skills", deleteAfter: false }]}
-            autoLoop={false}
-            startDelay={150}
-            typingSpeed={40}
-            naturalVariance={true}
-            className="w-auto inline-flex justify-start"
-            textClassName="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight"
-          />
-          <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
-        </motion.div>
+        <SectionHeader number="04" title="Core Skills" />
 
         {/* 3-Column Grid on Desktop, 2 on Tablet, 1 on Phone */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">

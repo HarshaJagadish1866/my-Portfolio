@@ -5,7 +5,7 @@ import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
 import { CheckCircle2 } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
-import { Typewriter } from "@/components/ui/type-writer"
+import { SectionHeader } from "@/components/ui/section-header"
 
 export function About() {
   const { owner } = portfolioData
@@ -15,34 +15,13 @@ export function About() {
   return (
     <section id="about" className="py-20 sm:py-24 border-t border-border/60 scroll-mt-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
+
         {/* Section Header */}
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0.9, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.35 }}
-          className="flex items-baseline gap-3 mb-10 sm:mb-14"
-        >
-          <span className="text-xs sm:text-sm font-mono text-accent font-semibold tracking-wider">
-            02
-          </span>
-          <Typewriter
-            as="h2"
-            sequences={[{ text: "About Me", deleteAfter: false }]}
-            autoLoop={false}
-            startDelay={150}
-            typingSpeed={40}
-            naturalVariance={true}
-            className="w-auto inline-flex justify-start"
-            textClassName="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground tracking-tight"
-          />
-          <div className="flex-1 h-[1px] bg-border ml-2 sm:ml-4 self-center opacity-80" />
-        </motion.div>
+        <SectionHeader number="02" title="About Me" />
 
         {/* Content Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-          
+
           {/* Left Column: Photo & Quick Status Card */}
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0.9, x: -10 }}
@@ -72,7 +51,7 @@ export function About() {
                       Open for Collaborations
                     </span>
                   </div>
-                  <div className="text-white font-serif font-bold text-xl">{owner.name}</div>
+                  <div className="text-white font-sans font-bold text-xl">{owner.name}</div>
                   <div className="text-orange-300 text-xs font-mono mt-0.5">
                     IIT Madras BS in Data Science
                   </div>
