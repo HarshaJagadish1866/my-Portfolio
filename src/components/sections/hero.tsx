@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { animate, stagger } from "animejs"
 import { ArrowRight, FileDown, Mail, Bot, Database, Sparkles, BrainCircuit } from "lucide-react"
 import { portfolioData } from "@/data/portfolio"
-import { BeamsBackground } from "@/components/kokonutui/beams-background"
+import { DrapeBackground } from "@/components/kokonutui/drape-background"
 import { ShimmerButton } from "@/components/kokonutui/shimmer-button"
 import { trackResumeDownload } from "@/lib/analytics"
 
@@ -46,9 +46,15 @@ export function Hero() {
   const nameLetters = owner.name.split("")
 
   return (
-    <section id="hero" className="relative pt-20 pb-16 sm:pt-28 sm:pb-24 overflow-hidden">
-      <BeamsBackground>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="hero" className="relative pt-12 pb-14 sm:pt-20 sm:pb-20 overflow-hidden">
+      <DrapeBackground
+        color="yellow"
+        className="w-full bg-transparent min-h-[640px] md:min-h-[720px] py-4 sm:py-8"
+        wind={1.2}
+        pleat={42}
+        interactive={true}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 w-full">
           <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-12">
             
             {/* Left Column: Text & Call to Actions */}
@@ -234,7 +240,7 @@ export function Hero() {
 
           </div>
         </div>
-      </BeamsBackground>
+      </DrapeBackground>
     </section>
   )
 }
