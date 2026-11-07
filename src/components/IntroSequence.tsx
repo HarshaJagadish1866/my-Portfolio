@@ -4,6 +4,16 @@ import React, { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import Image from "next/image"
 
+// =========================================================================
+// 🎯 LOOP TRANSFORM ORIGIN CONFIGURATION
+// Tweak these percentages to perfectly align the camera zoom through the loop:
+// - LOOP_ORIGIN_X: Horizontal percentage (0% = left, 100% = right)
+// - LOOP_ORIGIN_Y: Vertical percentage (0% = top, 100% = bottom)
+// =========================================================================
+export const LOOP_ORIGIN_X = "48%" // Default: 48% (tweak: 44% - 54%)
+export const LOOP_ORIGIN_Y = "58%" // Default: 58% (tweak: 52% - 64%)
+export const LOOP_TRANSFORM_ORIGIN = `${LOOP_ORIGIN_X} ${LOOP_ORIGIN_Y}`
+
 interface IntroSequenceProps {
   children: React.ReactNode
 }
@@ -44,130 +54,156 @@ export function IntroSequence({ children }: IntroSequenceProps) {
     }
   }, [handleTrigger, isTriggered, shouldReduceMotion])
 
-  // When animation triggers, dismiss overlay after the 3.8s sequence
+  // Automatically dismiss overlay once the fly-through sequence finishes
   useEffect(() => {
     if (isTriggered && !isDismissed) {
       const timer = setTimeout(() => {
         setIsDismissed(true)
-      }, 3800)
+      }, 3400)
       return () => clearTimeout(timer)
     }
   }, [isTriggered, isDismissed])
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden">
-      {/* 1. Full-screen, absolute/fixed dark overlay (highest z-index) */}
+      {/* 1. Full-screen dark overlay with 3D perspective */}
       <AnimatePresence>
         {!isDismissed && (
           <motion.div
             key="intro-overlay"
             initial={{ opacity: 1 }}
+            animate={
+              isTriggered
+                ? {
+                    opacity: [1, 1, 0.85, 0],
+                    transition: {
+                      duration: 3.4,
+                      times: [0, 0.65, 0.85, 1],
+                      ease: "easeInOut",
+                    },
+                  }
+                : { opacity: 1 }
+            }
             exit={{
               opacity: 0,
-              transition: { duration: 0.8, ease: "easeInOut" },
+              transition: { duration: 0.5, ease: "easeInOut" },
             }}
             onMouseMove={handleTrigger}
             onTouchStart={handleTrigger}
             onClick={handleTrigger}
             className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#090d16] cursor-pointer select-none overflow-hidden"
             style={{
-              perspective: 1000,
+              perspective: 1200,
               perspectiveOrigin: "center center",
             }}
             aria-label="Portfolio intro screen. Move mouse to enter."
           >
-            {/* Ambient Background Aura */}
+            {/* Ambient Background Glow */}
             <motion.div
               animate={
                 isTriggered
                   ? {
-                      opacity: [0.35, 0.8, 0],
-                      scale: [1, 2.5, 4],
-                      transition: { duration: 3.5, ease: "easeInOut" },
+                      opacity: [0.4, 0.8, 0],
+                      scale: [1, 2.5, 6],
+                      transition: { duration: 3.2, ease: "easeInOut" },
                     }
-                  : { opacity: 0.35, scale: 1 }
+                  : { opacity: 0.4, scale: 1 }
               }
-              className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-cyan-500/25 via-sky-400/20 to-purple-600/25 blur-[120px] pointer-events-none"
+              className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-cyan-500/30 via-sky-500/20 to-blue-600/30 blur-[130px] pointer-events-none"
             />
 
-            {/* 2 & 4. Centered Logo with 3D Y-axis spin & massive Z-axis camera flyout */}
+            {/* 3 & 4. 3D Extruded Logo with Zoom-Through Animation */}
             <motion.div
               style={{
                 transformStyle: "preserve-3d",
+                transformOrigin: LOOP_TRANSFORM_ORIGIN, // 🎯 Centers zoom directly on the circular loop
               }}
               initial={{
                 rotateY: 0,
                 scale: 1,
-                z: 0,
                 opacity: 1,
               }}
               animate={
                 isTriggered
                   ? {
-                      rotateY: 1440, // Continuous multi-rotation spin on Y-axis
-                      scale: [1, 2, 8, 25, 50], // Moves dramatically towards the camera past the screen
-                      z: [0, 150, 600, 1200, 2500],
-                      opacity: [1, 1, 0.95, 0.6, 0], // Fades to 0 as it gets massively close to the screen
+                      rotateY: [0, 180, 540, 900, 1080], // 3D Y-axis spinning
+                      scale: [1, 1.25, 4.5, 25, 100], // Massive scale-up swallowing screen through loop
+                      opacity: [1, 1, 1, 0.9, 0], // Fades to transparent as camera emerges on other side
                     }
                   : {
                       rotateY: 0,
                       scale: 1,
-                      z: 0,
                       opacity: 1,
                     }
               }
               transition={
                 isTriggered
                   ? {
-                      duration: 3.8, // 3.8s runtime matching the 3-5s requirement
-                      ease: [0.25, 0.1, 0.25, 1],
-                      times: [0, 0.3, 0.6, 0.85, 1],
+                      duration: 3.3,
+                      times: [0, 0.25, 0.55, 0.82, 1],
+                      ease: [0.22, 1, 0.36, 1], // Smooth acceleration into the loop
                     }
                   : undefined
               }
               className="relative flex flex-col items-center justify-center will-change-transform"
             >
-              <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 drop-shadow-[0_0_45px_rgba(6,182,212,0.5)]">
+              {/* Logo with Multi-layered 3D Extrusion Effect */}
+              <div
+                className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72 select-none"
+                style={{
+                  // Stacked drop-shadows creating physical faux 3D bevel & depth
+                  filter: `
+                    drop-shadow(1px 1px 0px #06b6d4)
+                    drop-shadow(2px 2px 0px #0891b2)
+                    drop-shadow(3px 3px 0px #0e7490)
+                    drop-shadow(4px 4px 0px #155e75)
+                    drop-shadow(5px 5px 0px #0f172a)
+                    drop-shadow(6px 6px 0px #020617)
+                    drop-shadow(0 0 35px rgba(6, 182, 212, 0.55))
+                  `,
+                }}
+              >
                 <Image
                   src="/logo.png"
-                  alt="Portfolio Logo"
+                  alt="Harsha Jagadish 3D Monogram Logo"
                   fill
                   priority
                   className="object-contain"
                 />
               </div>
 
-              {/* Gentle prompt (fades immediately on trigger) */}
+              {/* Interaction Hint (Fades out immediately on mousemove) */}
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
-                animate={isTriggered ? { opacity: 0 } : { opacity: 0.75, y: 0 }}
-                transition={{ duration: 0.3 }}
+                animate={isTriggered ? { opacity: 0 } : { opacity: 0.8, y: 0 }}
+                transition={{ duration: 0.25 }}
                 className="mt-8 text-xs font-mono tracking-[0.3em] text-cyan-400 uppercase flex items-center gap-2"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-                Move cursor to explore
+                Move cursor to enter
               </motion.p>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* 6. Main Portfolio Bento Grid website layout smoothly fades in behind receding overlay */}
+      {/* 5. Main Portfolio Bento Grid emerges smoothly from behind receding loop */}
       <motion.div
-        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+        initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
         animate={
           isTriggered || isDismissed || shouldReduceMotion
             ? {
                 opacity: 1,
+                scale: 1,
                 transition: {
                   duration: 1.2,
-                  delay: isTriggered && !isDismissed ? 2.2 : 0, // Starts smoothly emerging as logo approaches zenith
-                  ease: "easeOut",
+                  delay: isTriggered && !isDismissed ? 2.1 : 0, // Enters smoothly as the loop swallows the screen
+                  ease: [0.16, 1, 0.3, 1],
                 },
               }
-            : { opacity: 0 }
+            : { opacity: 0, scale: 0.92 }
         }
-        className="w-full min-h-screen"
+        className="w-full min-h-screen origin-center"
       >
         {children}
       </motion.div>
