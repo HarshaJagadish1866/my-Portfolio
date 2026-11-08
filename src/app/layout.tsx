@@ -76,7 +76,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Clean up browser extension DOM attribute injection (e.g. Bitdefender bis_skin_checked) before React hydration */}
         <script
@@ -125,8 +125,8 @@ export default function RootLayout({
         </a>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <GlobalLiquidCursor />
