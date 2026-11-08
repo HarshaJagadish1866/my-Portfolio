@@ -37,9 +37,10 @@ EDUCATION
 - Indian Institute of Technology, Madras: Bachelor of Science in Data Science and Applications, May 2025 to Present. Skills: Python. Certificate: 2026 May Foundation Certificate.
 
 PROJECTS
-1. Arbitr-AI (Jul 2026 to Present): Democratizing Legal Review with Multi-Agent AI. Contributors: Pavan and Abhilash.
-2. Voyager - Travelling Agent (Dec 2025): AI travel planner using real-time Google data to build personalized, accurate itineraries. Contributors: Pavan and Abhilash. Skills: Google Agent Development Kit (ADK), Multi-agent Systems.
-Project links: [ARBITR-AI LINK or "none yet"], [VOYAGER LINK or "none yet"]
+1. ZentroMart AI Voice Support Agent (VoiceOps) (Oct 2026): A voice and text AI customer support agent for ZentroMart with Gnani STT/TTS and policy RAG. Contributor: Harsha Jagadish. Status: Completed. Link: https://github.com/HarshaJagadish1866/HarshaJagadish_Voiceops
+2. Photopodra (Oct 2026): Fast, local-first photo gallery with local CLIP AI search. Contributor: Harsha Jagadish. Status: Completed. Link: https://github.com/HarshaJagadish1866/Photopodra
+3. Arbitr-AI (Jul 2026): Democratizing Legal Review with Multi-Agent AI. Contributors: Pavan and Abhilash. Status: Completed. Link: https://github.com/HarshaJagadish1866/Arbitr-ai
+4. Voyager - Travelling Agent (Dec 2025): AI travel planner using real-time Google data to build personalized, accurate itineraries. Contributors: Pavan and Abhilash. Skills: Google Agent Development Kit (ADK), Multi-agent Systems. Status: Completed.
 
 CERTIFICATIONS
 - Google Prompting Essentials (Google), Aug 2026. Skills: AI, Machine Learning, +3

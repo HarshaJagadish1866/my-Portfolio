@@ -44,6 +44,7 @@ export interface ProjectItem {
   title: string
   period: string
   summary: string
+  highlights?: string[]
   contributors: string[]
   skills: string[]
   githubUrl?: string | null
@@ -155,9 +156,61 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
+      id: "voiceops",
+      title: "ZentroMart AI Voice Support Agent (VoiceOps)",
+      period: "Oct 2026",
+      summary:
+        "A voice and text AI customer support agent for ZentroMart, a fictional Indian e-commerce marketplace. It answers multi-turn support conversations strictly from company policy documents, with identity verification, order lookups and speech in and out.",
+      highlights: [
+        "Speech pipeline: customer audio is transcribed with Gnani speech-to-text, answered by the agent, and spoken back with Gnani text-to-speech.",
+        "RAG over 21 policy documents with a precedence order (current policy first, superseded policy kept for reference only), and answers cite their policy section.",
+        "Identity verification before sharing order details, policy refusals (for example shipped-order cancellations), and human handover with ticket creation.",
+        "In my own benchmark of 52 questions, the RAG system answered all of them correctly versus 10 for a prompt-only baseline.",
+      ],
+      contributors: ["Harsha Jagadish"],
+      skills: [
+        "Python",
+        "RAG",
+        "Speech AI (STT/TTS)",
+        "LLM Application",
+        "Prompt Engineering",
+      ],
+      githubUrl: "https://github.com/HarshaJagadish1866/HarshaJagadish_Voiceops",
+      liveUrl: null,
+      imageUrl: null,
+      status: "Completed",
+    },
+    {
+      id: "photopodra",
+      title: "Photopodra",
+      period: "Oct 2026",
+      summary:
+        "A fast, local-first photo gallery inspired by Google Photos, with AI search that runs entirely on your own machine.",
+      highlights: [
+        "Watches a folder for photos, creates fast WebP thumbnails and reads EXIF data (camera, date taken, GPS).",
+        "Searches photos by describing them in words (for example \"sunset over bridge\"), using a local CLIP model with no cloud services.",
+        "Google Photos style timeline with sticky date headers, infinite scroll, lazy loading and a full-screen viewer.",
+        "Set up for Android and iOS (Capacitor), Windows and macOS desktop (Tauri), and self-hosting with Docker.",
+      ],
+      contributors: ["Harsha Jagadish"],
+      skills: [
+        "JavaScript",
+        "Node.js",
+        "React",
+        "SQLite",
+        "Tailwind CSS",
+        "Vector Search (CLIP)",
+        "Docker",
+      ],
+      githubUrl: "https://github.com/HarshaJagadish1866/Photopodra",
+      liveUrl: null,
+      imageUrl: null,
+      status: "Completed",
+    },
+    {
       id: "arbitr-ai",
       title: "Arbitr-AI",
-      period: "Jul 2026 to Present",
+      period: "Jul 2026",
       summary:
         "Democratizing Legal Review with Multi-Agent AI. Designed to orchestrate specialized AI agents that collaborate to parse complex legal documentation, identify critical clauses, and provide streamlined review intelligence.",
       contributors: ["Pavan", "Abhilash"],
@@ -171,7 +224,7 @@ export const portfolioData: PortfolioData = {
       githubUrl: "https://github.com/HarshaJagadish1866/Arbitr-ai",
       liveUrl: null,
       imageUrl: null,
-      status: "In Development",
+      status: "Completed",
     },
     {
       id: "voyager",
